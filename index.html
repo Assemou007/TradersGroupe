@@ -414,64 +414,127 @@
       .container {
         padding: 0 20px;
       }
-      
+
       .grid-2 {
         grid-template-columns: 1fr;
         gap: 30px;
       }
-      
+
       .btn-primary {
         font-size: 1rem;
         padding: 12px 22px;
+        width: 100%;
+        text-align: center;
       }
-      
+
       .price-big {
         font-size: 2.5rem;
       }
-      
+
       .live-ticker {
         animation-duration: 35s;
       }
-      
+
       .feed-item {
         font-size: 0.7rem;
         padding: 5px 16px;
       }
-      
+
       .swiper-slide-active .testimonial-card {
         transform: scale(1);
       }
-      
+
       .testimonial-quote {
         font-size: 0.9rem;
       }
-      
+
       .section-title {
         font-size: 2.2rem;
         margin-bottom: 30px;
       }
-      
+
       .e-fgrid {
         grid-template-columns: 1fr;
         gap: 20px;
       }
-      
+
       .e-fc {
-        max-width: 80%;
+        max-width: 100%;
         justify-items: center;
         margin: 0 auto;
       }
-      
+
       .e-fc-body {
         padding: 16px;
       }
-      
+
       .card {
         padding: 20px 18px;
       }
-      
+
       h1 {
         font-size: 2rem !important;
+      }
+
+      /* === HERO mobile: image après le badge === */
+      .hero-grid {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+      }
+
+      .hero-text {
+        display: contents;
+      }
+
+      .hero-badge { order: 1; }
+      .hero-image {
+        order: 2;
+        width: 100%;
+        margin: 16px 0;
+      }
+      .hero-title { order: 3; }
+      .hero-desc { order: 4; }
+      .hero-cta { order: 5; }
+      .hero-info {
+        order: 6;
+        justify-content: center !important;
+        text-align: center;
+      }
+
+      /* === Tout en block et centré sur mobile === */
+      section {
+        text-align: center;
+      }
+
+      .display-flex {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .checklist li, .crosslist li {
+        justify-content: center;
+        text-align: left;
+      }
+
+      .card {
+        text-align: center;
+      }
+
+      .card h3 {
+        text-align: center;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .faq-question {
+        text-align: left;
+      }
+
+      .live-feed {
+        text-align: left;
       }
     }
 
@@ -480,26 +543,49 @@
         font-size: 0.7rem;
         padding: 8px 12px;
       }
-      
+
       .section-title {
         font-size: 1.3rem;
       }
-      
+
       .price-big {
         font-size: 2rem;
       }
-      
+
       .testimonial-card {
         padding: 20px 16px;
       }
-      
+
       .testimonial-quote {
         font-size: 0.8rem;
       }
-      
+
       .swiper-button-prev,
       .swiper-button-next {
         display: none;
+      }
+
+      .hero-info {
+        flex-direction: column !important;
+        gap: 10px !important;
+        align-items: center;
+      }
+
+      .hero-desc {
+        font-size: 1rem !important;
+      }
+
+      h1 {
+        font-size: 1.6rem !important;
+      }
+
+      .btn-primary {
+        font-size: 0.9rem;
+        padding: 12px 18px;
+      }
+
+      .e-fc {
+        max-width: 100%;
       }
     }
   </style>
@@ -514,20 +600,20 @@
   <!-- HERO -->
   <section style="padding-top: 48px;">
     <div class="container">
-      <div class="grid-2" style="align-items: center;">
-        <div>
-          <span class="badge"><i class="fas fa-chart-line"></i> Expert Advisor / Indicateur MetaTrader 5</span>
-          <h1 style="font-size: 3rem; line-height: 1.2; margin: 24px 0 16px; text-transform: uppercase;">Arrête de trader à<br> <span class="text-gold">L'INSTINCT.</span><br> Voici l'outil que j'utilise moi-même chaque jour</h1>
-          <p style="font-size: 1.2rem; color: #B9C3D9; margin-bottom: 28px; text-transform: uppercase;">ETG Advanced PA Secured détecte tes zones, calcule ton risque et exécute tes ordres — pendant que toi tu prends la décision.</p>
-          <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary" id="ctaHero"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
-          <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.85rem; font-weight: 500;">
+      <div class="grid-2 hero-grid" style="align-items: center;">
+        <div class="hero-text">
+          <span class="badge hero-badge"><i class="fas fa-chart-line"></i> Expert Advisor / Indicateur MetaTrader 5</span>
+          <h1 class="hero-title" style="font-size: 3rem; line-height: 1.2; margin: 24px 0 16px; text-transform: uppercase;">Arrête de trader à<br> <span class="text-gold">L'INSTINCT.</span><br> Voici l'outil que j'utilise moi-même chaque jour</h1>
+          <p class="hero-desc" style="font-size: 1.2rem; color: #B9C3D9; margin-bottom: 28px; text-transform: uppercase;">ETG Advanced PA Secured détecte tes zones, calcule ton risque et exécute tes ordres — pendant que toi tu prends la décision.</p>
+          <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary hero-cta" id="ctaHero"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
+          <div class="hero-info" style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.85rem; font-weight: 500;">
             <span><i class="fas fa-credit-card" style="color:#E5A12E;"></i> Paiement unique</span>
             <span><i class="fas fa-ban" style="color:#E5A12E;"></i> Aucun abonnement</span>
             <span><i class="fas fa-chart-simple" style="color:#E5A12E;"></i> 50 licences disponibles</span>
             <span><i class="fas fa-sync-alt" style="color:#E5A12E;"></i> Toutes les mises à jour incluses</span>
           </div>
         </div>
-        <div class="img-placeholder">
+        <div class="img-placeholder hero-image">
           <img src="./assets/img/banner.jpeg" alt="" style="width: 100%; border-radius: 18px; display: block;">
         </div>
       </div>
