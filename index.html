@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>ETG Advanced PA Secured | EA MT5 | Elite Traders Group</title>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #07090E;
+      font-family: 'Montserrat', sans-serif;
+      color: #EFF3F8;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, .logo, .cta-title, .price, .btn-primary, .section-title {
+      font-family: 'League Spartan', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .top-banner {
+      background: linear-gradient(135deg, #E9B34B 0%, #C67A0F 100%);
+      color: #07090E;
+      text-align: center;
+      padding: 12px 16px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.8px;
+      font-family: 'League Spartan', sans-serif;
+      text-transform: uppercase;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(105deg, #E5A12E 0%, #C67A0F 100%);
+      color: #07090E;
+      font-weight: 800;
+      font-size: 1.2rem;
+      padding: 14px 34px;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 12px 20px -12px rgba(198, 122, 15, 0.5);
+      font-family: 'League Spartan', sans-serif;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(105deg, #F0B341 0%, #D88B1A 100%);
+      box-shadow: 0 20px 28px -12px rgba(229, 161, 46, 0.6);
+    }
+
+    .card {
+      background: #0F131C;
+      border-radius: 28px;
+      padding: 28px 26px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.6);
+      border: 1px solid #222A3A;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #C67A0F;
+      box-shadow: 0 28px 40px -18px #000000;
+    }
+
+    .grid-2 { display: grid; gap: 30px; grid-template-columns: repeat(2, 1fr); }
+
+    .live-feed {
+      background: #0A0D14;
+      border-radius: 24px;
+      padding: 16px 20px;
+      margin-top: 48px;
+      border-left: 5px solid #E9B34B;
+      overflow: hidden;
+    }
+
+    .live-ticker {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker-scroll 50s linear infinite;
+      gap: 2rem;
+      width: fit-content;
+    }
+
+    .live-ticker:hover {
+      animation-play-state: paused;
+    }
+
+    .feed-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      padding: 8px 24px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: rgba(229, 161, 46, 0.1);
+      border-radius: 40px;
+    }
+
+    .feed-icon {
+      color: #E5A12E;
+      font-size: 0.7rem;
+    }
+
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .badge {
+      background: #E5A12E20;
+      color: #E5A12E;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .testimonials-slider {
+      width: 100%;
+      padding: 20px 0 60px;
+      position: relative;
+    }
+
+    .testimonial-card {
+      background: #0F131C;
+      border-radius: 24px;
+      padding: 32px 24px;
+      text-align: center;
+      border: 1px solid #2A3448;
+      transition: all 0.3s ease;
+      margin: 10px;
+      height: auto;
+    }
+
+    .swiper-slide-active .testimonial-card {
+      transform: scale(1.05);
+      border: 2px solid #E5A12E;
+      box-shadow: 0 0 30px rgba(229, 161, 46, 0.4);
+      background: #161E2C;
+    }
+
+    .testimonial-stars {
+      color: #E5A12E;
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-quote {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #EFF3F8;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      color: #E5A12E;
+      font-size: 0.95rem;
+    }
+
+    .swiper-pagination-bullet {
+      background: #E5A12E;
+      opacity: 0.5;
+    }
+
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      background: #E5A12E;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: #E5A12E;
+    }
+
+    .checklist li, .crosslist li {
+      list-style: none;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
+
+    .checklist li i { color: #E5A12E; font-size: 1.3rem; width: 28px; }
+    .crosslist li i { color: #E34F4F; font-size: 1.3rem; width: 28px; }
+
+    .price-big {
+      font-size: 3.4rem;
+      font-weight: 800;
+      color: #E5A12E;
+      font-family: 'League Spartan', sans-serif;
+      letter-spacing: -1px;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #8E9AAF;
+      font-size: 1.2rem;
+    }
+
+    .faq-question {
+      background: #0F131C;
+      padding: 18px 24px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.2s;
+      border: 1px solid #222A3A;
+    }
+
+    .faq-question:hover { background: #171E2B; border-color: #E5A12E70; }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+      background: #090C12;
+      border-radius: 0 0 20px 20px;
+      padding: 0 24px;
+      margin-top: -6px;
+      color: #C9D1E6;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 280px;
+      padding: 18px 24px 24px 24px;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .img-placeholder {
+      background: linear-gradient(145deg, #131A24, #0A0D14);
+      border-radius: 24px;
+      padding: 10px;
+      text-align: center;
+      border: 1px dashed #E5A12E80;
+    }
+  
+    #etg-feats {
+      background: #001428;
+      padding: 60px 0;
+    }
+
+    .e-fgrid { 
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px; 
+      margin-top: 48px;
+      max-width: 1200px; 
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .e-fc { 
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      width: 100%;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .4);
+      transition: transform .3s ease, box-shadow .3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .e-fc:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+    }
+
+    .e-fc-head { 
+      background: #E5A12E;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .e-fc-head i {
+      color: #05012e;
+      font-size: 2rem;
+    }
+
+    .e-fc-title {
+      font-family: 'League Spartan', sans-serif;
+      font-size: 17px;
+      font-weight: 900;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      text-align: center;
+      margin: 0;
+    }
+
+    .e-fc-body {
+      padding: 20px;
+      background: #fff;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .e-fc-photo {
+      width: 100%;
+      background: #e8e8e8;
+      border-radius: 6px;
+      min-height: 180px;
+      max-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 12px;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .e-fc-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .e-fc-desc {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.6;
+      font-family: 'Montserrat', sans-serif;
+      text-align: left;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      margin-bottom: 48px;
+      text-align: center;
+      font-weight: 800;
+      color: #E5A12E;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+    }
+
+    .text-gold {
+      background: linear-gradient(135deg, #F5C572, #E5A12E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    footer {
+      background: #04070C;
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.7rem;
+      border-top: 1px solid #1F2838;
+    }
+
+    .display-flex { display: flex; }
+    .flex-column { flex-direction: column; }
+    .align-center { align-items: center; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .e-fgrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+      
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .btn-primary {
+        font-size: 1rem;
+        padding: 12px 22px;
+      }
+      
+      .price-big {
+        font-size: 2.5rem;
+      }
+      
+      .live-ticker {
+        animation-duration: 35s;
+      }
+      
+      .feed-item {
+        font-size: 0.7rem;
+        padding: 5px 16px;
+      }
+      
+      .swiper-slide-active .testimonial-card {
+        transform: scale(1);
+      }
+      
+      .testimonial-quote {
+        font-size: 0.9rem;
+      }
+      
+      .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+      }
+      
+      .e-fgrid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .e-fc {
+        max-width: 80%;
+        justify-items: center;
+        margin: 0 auto;
+      }
+      
+      .e-fc-body {
+        padding: 16px;
+      }
+      
+      .card {
+        padding: 20px 18px;
+      }
+      
+      h1 {
+        font-size: 2rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-banner {
+        font-size: 0.7rem;
+        padding: 8px 12px;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+      }
+      
+      .price-big {
+        font-size: 2rem;
+      }
+      
+      .testimonial-card {
+        padding: 20px 16px;
+      }
+      
+      .testimonial-quote {
+        font-size: 0.8rem;
+      }
+      
+      .swiper-button-prev,
+      .swiper-button-next {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-banner">
+  <i class="fas fa-bolt" style="margin-right: 8px;"></i> OFFRE DE LANCEMENT — 50 LICENCES UNIQUEMENT À 19.900 FCFA · APRÈS : 35.000 FCFA
+</div>
+
+<main>
+  <!-- HERO -->
+  <section style="padding-top: 48px;">
+    <div class="container">
+      <div class="grid-2" style="align-items: center;">
+        <div>
+          <span class="badge"><i class="fas fa-chart-line"></i> Expert Advisor / Indicateur MetaTrader 5 — Elite Traders Group</span>
+          <h1 style="font-size: 3rem; line-height: 1.2; margin: 24px 0 16px; text-transform: uppercase;">Arrête de trader à<br> <span class="text-gold">L'INSTINCT.</span><br> Voici l'outil que j'utilise moi-même chaque jour</h1>
+          <p style="font-size: 1.2rem; color: #B9C3D9; margin-bottom: 28px; text-transform: uppercase;">ETG Advanced PA Secured détecte tes zones, calcule ton risque et exécute tes ordres — pendant que toi tu prends la décision.</p>
+          <a href="#" class="btn-primary" id="ctaHero"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
+          <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.85rem; font-weight: 500;">
+            <span><i class="fas fa-credit-card" style="color:#E5A12E;"></i> Paiement unique</span>
+            <span><i class="fas fa-ban" style="color:#E5A12E;"></i> Aucun abonnement</span>
+            <span><i class="fas fa-chart-simple" style="color:#E5A12E;"></i> 50 licences disponibles</span>
+            <span><i class="fas fa-sync-alt" style="color:#E5A12E;"></i> Toutes les mises à jour incluses</span>
+          </div>
+        </div>
+        <div class="img-placeholder">
+          <img src="./assets/img/banner.jpeg" alt="" style="width: 100%; border-radius: 18px; display: block;">
+        </div>
+      </div>
+
+      <div class="live-feed">
+        <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+          <i class="fas fa-circle" style="font-size: 10px; color: #E5A12E;"></i>
+          <span style="font-weight: 800;">ACTIVITÉ EN DIRECT</span>
+          <span style="font-size: 12px;">— achats récents</span>
+        </div>
+        <div id="feedContainer" class="live-ticker"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Témoignages SLIDER -->
+  <section style="background: #090C12;">
+    <div class="container">
+      <h2 class="section-title">CE QUE DISENT CEUX QUI L'UTILISENT DÉJÀ</h2>
+      
+      <div class="testimonials-slider swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">“L'algo détecte les tendances avec justesse. Moins d'erreurs émotionnelles.”</div>
+              <div class="testimonial-author">Abraham S. — Burkina Faso</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">“Groupe privé ETG et mises à jour régulières, un must-have.”</div>
+              <div class="testimonial-author">Seydou B. — Mali</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">“L'EA détecte des zones que je ne voyais pas. Gain de temps énorme et entrées plus propres.”</div>
+              <div class="testimonial-author">Koffi M. — Côte d'Ivoire</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">“Plus de calculs manuels risqués. Le calculateur de position intégré m'a sauvé plusieurs trades.”</div>
+              <div class="testimonial-author">Aïcha L. — Bénin</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">“Installation rapide, support WhatsApp réactif. Indispensable sur Deriv.”</div>
+              <div class="testimonial-author">Moussa D. — Sénégal</div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">“Bouton Entry Now, exécution fiable. Je n'hésite plus, SL/TP préconfiguré.”</div>
+              <div class="testimonial-author">Adjoa K. — Togo</div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tu te reconnais dans ça ? -->
+  <section>
+    <div class="container display-flex flex-column align-center">
+      <h2 class="section-title">TU TE RECONNAIS DANS ÇA ?</h2>
+      <div style="max-width: 600px; width: 100%;">
+        <div class="card">
+          <ul class="crosslist">
+            <li><i class="fas fa-times-circle"></i> Tu rates des entrées parce que tu hésites trop longtemps</li>
+            <li><i class="fas fa-times-circle"></i> Tu trades sans système clair — juste à l'instinct</li>
+            <li><i class="fas fa-times-circle"></i> Tu ne sais jamais combien risquer sur un trade</li>
+            <li><i class="fas fa-times-circle"></i> Tes zones S/R sont tracées à la main, souvent faux</li>
+            <li><i class="fas fa-times-circle"></i> Tu perds du temps à tout analyser manuellement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outil tout-en-un -->
+  <section>
+    <div class="container display-flex flex-column align-center" style="width: 100%; text-align: center;">
+      <h2 class="section-title">L'OUTIL TOUT-EN-UN UTILISÉ CHEZ ELITE TRADERS GROUP.</h2>
+      <!-- <div class="card display-flex flex-column align-center" style="width: 100%;"> -->
+        <div class="img-placeholder" style="margin: 20px auto; background: none; border: none; max-width: 50em; width: 100%;">
+          <img src="./assets/img/banner.jpeg" alt="Banner ETG" style="width: 100%; height: auto; border-radius: 18px; display: block;">
+        </div>
+        <p style="max-width: 600px; margin: 0 auto;">
+          Pendant des années, j'ai cherché l'outil parfait pour trader avec méthode. Je ne l'ai jamais trouvé — alors je l'ai créé. ETG Advanced PA Secured est l'Expert Advisor MetaTrader 5 que j'utilise moi-même, et que mes élèves d'Elite Traders Group utilisent depuis des semaines.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ce que fait l'EA pour toi -->
+  <section id="etg-feats">
+    <div class="container">
+      <h2 class="section-title">CE QUE FAIT L'EA POUR TOI</h2>
+      <div class="e-fgrid">
+        <div class="e-fc">
+          <div class="e-fc-head">
+            <i class="fa-solid fa-location-dot" style="color: #000;"></i>
+            <div class="e-fc-title">Détection auto zones S/R</div>
+          </div>
+          <div class="e-fc-body">
+            <div class="e-fc-photo"><img src="./assets/img/card1.jpeg" alt="Zones S/R"></div>
+            <p class="e-fc-desc">Algorithme analyse la structure du marché selon la Price Action pure. Résistances en rouge, supports en vert — automatiquement.</p>
+          </div>
+        </div>
+        <div class="e-fc">
+          <div class="e-fc-head">
+            <i class="fas fa-chart-line" style="color: #000;"></i>
+            <div class="e-fc-title">Système Elite Trends intégré</div>
+          </div>
+          <div class="e-fc-body">
+            <div class="e-fc-photo"><img src="./assets/img/card2.jpeg" alt="Elite Trends"></div>
+            <p class="e-fc-desc">Analyse la structure du marché en permanence. Identifie la tendance dominante pour filtrer tes trades.</p>
+          </div>
+        </div>
+        <div class="e-fc">
+          <div class="e-fc-head">
+            <i class="fas fa-calculator" style="color: #000;"></i>
+            <div class="e-fc-title">Calculateur de position</div>
+          </div>
+          <div class="e-fc-body">
+            <div class="e-fc-photo"><img src="./assets/img/card3.jpeg" alt="Calculateur"></div>
+            <p class="e-fc-desc">Calcule automatiquement la taille de position selon ton risque %. SL/TP configurables directement sur le graphique.</p>
+          </div>
+        </div>
+        <div class="e-fc">
+          <div class="e-fc-head">
+            <i class="fas fa-bolt" style="color: #000;"></i>
+            <div class="e-fc-title">Bouton Entry Now</div>
+          </div>
+          <div class="e-fc-body">
+            <div class="e-fc-photo"><img src="./assets/img/card4.jpeg" alt="Entry Now"></div>
+            <p class="e-fc-desc">Un seul clic pour exécuter l'ordre au bon prix avec SL/TP prédéfinis. Zéro délai, zéro erreur d'exécution.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offre & investissement -->
+  <section>
+    <div class="container">
+      <div class="card" style="text-align: center; max-width: 780px; margin: 0 auto; background: linear-gradient(145deg, #0F131C, #080B12); border: 1px solid #E5A12E30;">
+        <span class="badge" style="background: #E5A12E; color:#07090E;">Offre éclair</span>
+        <h2 style="font-size: 2rem; margin: 20px 0 8px;">Ton investissement aujourd'hui</h2>
+        <p>50 LICENCES DISPONIBLES À</p>
+        <div class="price-big">19.900 FCFA</div>
+        <div class="old-price">Prix normal : 35.000 FCFA</div>
+        <p style="margin: 18px 0;"><i class="fas fa-check-circle" style="color:#E5A12E;"></i> Paiement unique — AUCUN ABONNEMENT. JAMAIS</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin: 24px 0;">
+          <span><i class="fas fa-laptop" style="color:#E5A12E;"></i> Licence EA pour 1 PC</span>
+          <span><i class="fas fa-cloud-upload-alt" style="color:#E5A12E;"></i> Toutes les mises à jour incluses</span>
+          <span><i class="fab fa-whatsapp" style="color:#E5A12E;"></i> Support WhatsApp installation</span>
+          <span><i class="fas fa-users" style="color:#E5A12E;"></i> Accès groupe privé ETG</span>
+        </div>
+        <a href="#" class="btn-primary" id="ctaPrice"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
+        <p style="margin-top: 22px; font-size: 0.75rem;"><i class="fas fa-check-circle"></i> Compatible : Forex · Indices Synthétiques Deriv · Tous brokers MT5 · Paiement sécurisé</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- C'est fait pour toi ? -->
+  <section style="background: #090C12;">
+    <div class="container">
+      <h2 class="section-title">C'EST FAIT POUR TOI ?</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3><i class="fas fa-thumbs-up" style="color:#E5A12E;"></i> C'est pour toi si...</h3>
+          <ul class="checklist" style="margin-top: 20px;">
+            <li><i class="fas fa-check-circle"></i> Tu veux structurer ta stratégie de trading</li>
+            <li><i class="fas fa-check-circle"></i> Tu cherches un outil pro clé en main</li>
+            <li><i class="fas fa-check-circle"></i> Tu trades Forex, Indices Synthétiques ou Deriv</li>
+            <li><i class="fas fa-check-circle"></i> Tu veux gagner du temps sur l'analyse</li>
+            <li><i class="fas fa-check-circle"></i> Tu as besoin d'un calculateur de risque fiable</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-thumbs-down" style="color:#E34F4F;"></i> Pas pour toi si...</h3>
+          <ul class="crosslist" style="margin-top: 20px;">
+            <li><i class="fas fa-times-circle"></i> Tu cherches un robot qui trade à ta place</li>
+            <li><i class="fas fa-times-circle"></i> Tu veux des garanties de profits</li>
+            <li><i class="fas fa-times-circle"></i> Tu n'as pas de compte MT5</li>
+            <li><i class="fas fa-times-circle"></i> Tu n'es pas prêt à apprendre une stratégie</li>
+            <li><i class="fas fa-times-circle"></i> Tu cherches juste un indicateur de signal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordéon -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">QUESTIONS FRÉQUENTES</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question"><span>❓ Qu'est-ce que l'ETG Advanced PA Secured exactement ?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Un Expert Advisor MT5 développé par Elite Traders Group qui automatise la détection des zones S/R, le calcul du risque et l'exécution des ordres selon la Price Action.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>❓ Est-ce un robot automatique ?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Non. L'EA t'assiste : il détecte les zones, calcule le risque et prépare l'ordre. C'est toi qui décides d'appuyer sur Entry Now. Tu gardes le contrôle total.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>❓ Sur quels marchés est-il compatible ?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Forex, Indices Synthétiques Deriv (Boom, Crash, Step Index), et tous les brokers compatibles MT5.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>❓ Puis-je utiliser la licence sur plusieurs PC ?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">La licence est sécurisée pour 1 PC. Chaque achat = 1 licence PC. Support WhatsApp pour changement.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>❓ Y a-t-il un remboursement possible ?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Vente définitive. Politique clairement affichée avant l'achat. Le produit est numérique avec accès immédiat.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question"><span>❓ Comment se passe l'installation ?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="faq-answer">Accès immédiat via WhatsApp avec guide complet et support direct. Notre équipe t'accompagne étape par étape.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dernier CTA -->
+  <section style="padding-top: 20px; padding-bottom: 70px;">
+    <div class="container">
+      <div class="card" style="text-align: center; background: #0A0E17; border: 2px solid #E5A12E30;">
+        <h2 style="font-size: 2rem;text-transform: uppercase;">Rejoins les <span class="gold"style="color:#E5A12E;">50 premiers traders </span><br>à utiliser un <div class="gold" style="color: #E5A12E;">système complet</div></h2>
+        <p style="margin: 16px 0;">Paiement unique · Aucun abonnement · Accès immédiat</p>
+        <a href="#" class="btn-primary" id="ctaFooter"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
+        <p style="margin-top: 20px; font-size: 0.7rem;"><i class="fas fa-lock"></i> 50 licences disponibles · Paiement unique</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>L'EA NE GARANTIT PAS DE PROFITS. LE TRADING COMPORTE DES RISQUES IMPORTANTS DE PERTE EN CAPITAL. N'INVESTISSEZ QUE CE QUE VOUS POUVEZ VOUS PERMETTRE DE PERDRE.</p>
+    <p style="margin-top: 12px;">© 2025 ELITE TRADERS GROUP · TOUS DROITS RÉSERVÉS</p>
+  </div>
+</footer>
+
+<script>
+  const activities = [
+    "Koffi M. — Côte d'Ivoire vient d'obtenir sa licence ETG Advanced PA Secured ✓",
+    "Moussa D. — Sénégal a commencé à trader avec l'EA ce matin ✓",
+    "Adjoa K. — Togo vient de passer commande ✓",
+    "Ibrahim S. — Burkina Faso \"L'EA a détecté une zone parfaite sur le Boom 1000\" ✓",
+    "Seydou B. — Mali vient de rejoindre le groupe privé ETG ✓",
+    "Aïcha L. — Bénin vient d'activer sa licence sur MT5 ✓",
+    "Eric A. — Cameroun exécute son premier trade avec Entry Now ✓",
+    "Fatou N. — Sénégal \"Le calculateur de risque m'a évité un gros DD\" ✓"
+  ];
+
+  function initTicker() {
+    const feedDiv = document.getElementById('feedContainer');
+    if (!feedDiv) return;
+    const allItems = [...activities, ...activities];
+    feedDiv.innerHTML = allItems.map(msg => `
+      <div class="feed-item">
+        <i class="fas fa-circle feed-icon"></i>
+        <span>${msg}</span>
+      </div>
+    `).join('');
+  }
+
+  initTicker();
+
+  const testimonialsSwiper = new Swiper('.testimonials-slider', {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    centeredSlides: true,
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        centeredSlides: true,
+      }
+    },
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    speed: 600,
+  });
+
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const qDiv = item.querySelector('.faq-question');
+    qDiv.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+      faqItems.forEach(i => i.classList.remove('active'));
+      if (!isActive) item.classList.add('active');
+    });
+  });
+  if(faqItems.length) faqItems[0].classList.add('active');
+  
+  const ctaBtns = document.querySelectorAll('#ctaHero, #ctaPrice, #ctaFooter');
+  ctaBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert("🔐 Lien de paiement sécurisé — Offre limitée 50 licences à 19.900 FCFA. Accès immédiat via WhatsApp.");
+    });
+  });
+</script>
+</body>
+</html>

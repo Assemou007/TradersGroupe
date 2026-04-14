@@ -1,0 +1,420 @@
+
+/* ===== TICKER DÉFILANT ===== */
+#etg-ticker {
+  background: var(--blue1);
+  border-top: 1px solid rgba(0,102,204,.25);
+  border-bottom: 1px solid rgba(0,102,204,.25);
+  overflow: hidden; white-space: nowrap; padding: 10px 0;
+}
+.etg-ticker-track {
+  display: inline-flex; gap: 0;
+  animation: etgTicker 42s linear infinite;
+}
+.etg-ticker-track:hover { animation-play-state: paused; }
+.etg-ticker-item {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 0 48px; font-size: 13px; color: var(--white);
+  border-right: 1px solid rgba(0,102,204,.2); white-space: nowrap;
+}
+.etg-ticker-item .t-name { color: var(--gold); font-weight: 600; font-size: 12px; }
+.etg-ticker-item .t-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cta); flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(0,200,83,.6);
+  animation: etgDotBlink 2s infinite;
+}
+.etg-ticker-item .t-time { color: var(--gray); font-size: 11px; font-style: italic; }
+@keyframes etgTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes etgDotBlink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+/* ===== SECTIONS LAYOUT (Bootstrap containers) ===== */
+.etg-sec { width: 100%; padding: 80px 0; }
+.etg-inner { max-width: 1060px; margin: 0 auto; width: 100%; }
+.etg-inner-sm { max-width: 680px; margin: 0 auto; width: 100%; }
+.etg-title {
+  font-size: clamp(32px, 5vw, 56px); color: var(--gold); margin-bottom: 10px;
+}
+.etg-sub {
+  font-size: 15px; color: var(--gray); margin-bottom: 14px; line-height: 1.6;
+  max-width: 600px; margin-left: auto; margin-right: auto;
+}
+.etg-divider {
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto 40px;
+}
+
+/* ===== CTA BUTTON (Bootstrap btn-lg base) ===== */
+.etg-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--cta) !important; color: #000 !important; border: none !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-weight: 900 !important; font-size: clamp(17px, 2.8vw, 23px) !important;
+  letter-spacing: 2px !important; text-transform: uppercase !important;
+  padding: 18px 52px !important; border-radius: 8px !important;
+  animation: etgBounce 2.2s ease-in-out infinite;
+  position: relative; overflow: hidden;
+  box-shadow: 0 6px 32px rgba(0,200,83,.4) !important;
+  text-decoration: none !important;
+}
+.etg-cta::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+  transform: translateX(-100%); animation: etgRipple 2.2s ease-in-out infinite;
+}
+.etg-cta:hover { animation: none !important; transform: scale(1.04) !important; }
+@keyframes etgBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes etgRipple { 0% { transform: translateX(-100%); } 60%,100% { transform: translateX(110%); } }
+.etg-cta-sub {
+  margin-top: 12px; font-size: 11.5px; color: var(--gray); line-height: 1.7;
+}
+.etg-cta-sub strong { color: var(--white); font-weight: 600; }
+.etg-cta.full { width: 100%; max-width: 520px; margin: 0 auto; display: flex; }
+
+/* ===== HERO SECTION ===== */
+#etg-hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background: #0a0a0a; padding: 80px 0 100px; overflow: hidden;
+}
+#etg-hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 20%, rgba(0,102,204,.08) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 50% 90%, rgba(212,160,23,.05) 0%, transparent 60%);
+}
+.etg-hero-inner {
+  position: relative; z-index: 2; max-width: 860px; margin: 0 auto;
+  text-align: center; display: flex; flex-direction: column; align-items: center;
+}
+.etg-hero-img {
+  width: 100%; max-width: 760px; margin: 0 auto 28px;
+  border: 2px solid var(--gold); border-radius: 12px;
+  box-shadow: 0 0 40px rgba(212,160,23,.25), 0 20px 60px rgba(0,0,0,.7);
+  overflow: hidden;
+}
+.etg-hero-img img { width: 100%; height: auto; }
+
+/* EA FALLBACK (mock screenshots) */
+.etg-ea-fallback {
+  background: linear-gradient(135deg, #0a0f1a 0%, #0d1628 100%); padding: 20px 24px;
+}
+.etg-ea-top {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(212,160,23,.3); padding-bottom: 12px; margin-bottom: 14px;
+}
+.etg-ea-lbl { font-family: 'Barlow Condensed'; font-size: 14px; color: var(--gold); letter-spacing: 3px; font-weight: 700; }
+.etg-ea-dot { color: var(--cta); font-size: 10px; font-weight: 700; animation: etgBlink 1.4s infinite; }
+@keyframes etgBlink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+.etg-ea-zones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.etg-zr, .etg-zs { border-radius: 6px; padding: 9px 14px; text-align: center; }
+.etg-zr { background: rgba(255,50,50,.15); border: 1px solid rgba(255,80,80,.5); }
+.etg-zs { background: rgba(0,200,83,.15); border: 1px solid rgba(0,200,83,.5); }
+.etg-zl { font-size: 8px; text-transform: uppercase; letter-spacing: 1px; opacity: .7; margin-bottom: 4px; }
+.etg-zr .etg-zl, .etg-zr .etg-zp { color: #ff8080; }
+.etg-zs .etg-zl, .etg-zs .etg-zp { color: #00ff88; }
+.etg-zp { font-size: 14px; font-weight: 700; }
+.etg-ea-calc {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 8px;
+  background: rgba(212,160,23,.08); border: 1px solid rgba(212,160,23,.3);
+  border-radius: 6px; padding: 10px 14px; margin-bottom: 12px;
+}
+.etg-cl { font-size: 8px; text-transform: uppercase; color: var(--gray); margin-bottom: 3px; }
+.etg-cv { font-size: 13px; font-weight: 700; color: var(--gold); }
+.etg-ea-btn {
+  display: block; width: 100%; background: var(--cta); color: #000;
+  font-family: 'Barlow Condensed'; font-weight: 900; font-size: 18px; letter-spacing: 3px;
+  text-transform: uppercase; border-radius: 6px; padding: 12px;
+  animation: etgPulse 2s infinite; border: none; cursor: pointer;
+}
+@keyframes etgPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(0,200,83,.4); }
+  50% { box-shadow: 0 0 0 10px rgba(0,200,83,0); }
+}
+.etg-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,102,204,.12); border: 1px solid rgba(0,102,204,.5);
+  border-radius: 50px; padding: 6px 20px; font-size: 11px; font-weight: 600;
+  color: #6ab3ff; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 22px;
+}
+.etg-h1 { font-size: clamp(40px,9vw,86px); color: var(--white); margin-bottom: 22px; }
+.etg-h1 .gold { color: var(--gold); }
+.etg-h2 {
+  font-size: clamp(15px,2.5vw,18px); font-weight: 400; color: rgba(255,255,255,.8);
+  max-width: 620px; margin: 0 auto 36px; line-height: 1.7;
+}
+.etg-h2 strong { color: var(--gold); font-weight: 600; }
+
+/* ===== TESTIMONIALS CARDS ===== */
+#etg-testi { background: var(--blue2); }
+.etg-tgrid { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important; gap: 24px !important; margin-top: 8px; }
+.etg-tc {
+  background: var(--blue1); border: 1.5px solid var(--blueAcc); border-radius: 12px;
+  padding: 26px 22px; text-align: left; position: relative; overflow: hidden;
+  box-shadow: 0 0 12px rgba(0,102,204,.15); transition: all .3s ease;
+}
+.etg-tc:hover { transform: translateY(-5px); box-shadow: 0 14px 40px rgba(0,102,204,.25); }
+.etg-tc::before {
+  content: '"'; position: absolute; top: -8px; right: 14px;
+  font-size: 90px; color: rgba(0,102,204,.08); font-family: Georgia, serif;
+  line-height: 1; pointer-events: none;
+}
+.etg-tc-hd { display: flex; align-items: center; gap: 13px; margin-bottom: 14px; }
+.etg-av {
+  width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--gold);
+  flex-shrink: 0; background: linear-gradient(135deg, var(--blue2), #002850);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed'; font-size: 20px; font-weight: 800; color: var(--gold);
+}
+.etg-tn { font-weight: 700; font-size: 14px; color: var(--gold); }
+.etg-tr { font-size: 11px; color: var(--gray); font-style: italic; }
+.etg-stars { color: var(--gold); font-size: 14px; margin-bottom: 10px; letter-spacing: 2px; }
+.etg-tt { font-size: 13px; color: var(--white); line-height: 1.7; font-style: italic; }
+
+/* ===== PROBLEM LIST ===== */
+#etg-problem { background: var(--blue1); }
+.etg-plist {
+  display: flex; flex-direction: column; gap: 14px; text-align: left;
+  max-width: 680px; margin: 0 auto;
+}
+.etg-pi {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: rgba(0,102,204,.06); border: 1px solid rgba(0,102,204,.15);
+  border-left: 3px solid var(--red); border-radius: 8px; padding: 16px 20px;
+  font-size: 15px; line-height: 1.5; transition: all .3s ease;
+}
+.etg-pi:hover { background: rgba(0,102,204,.1); border-left-color: var(--gold); }
+.etg-pi-dash {
+  width: 16px; height: 2px; background: var(--gold); flex-shrink: 0;
+  margin-top: 11px; border-radius: 2px;
+}
+
+/* ===== SOLUTION MOCK ===== */
+#etg-solution { background: var(--blue2); }
+.etg-sol-img {
+  max-width: 820px; width: 100%; margin: 36px auto 0;
+  border: 2px solid var(--gold); border-radius: 12px;
+  box-shadow: 0 0 40px rgba(212,160,23,.2), 0 20px 60px rgba(0,0,0,.6);
+  overflow: hidden;
+}
+.etg-sol-img img { width: 100%; height: auto; }
+.etg-sol-fallback { background: linear-gradient(135deg, #0a0f1a 0%, #0d1628 100%); padding: 24px; }
+.etg-sol-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(212,160,23,.3);
+}
+.etg-sol-lbl { font-family: 'Barlow Condensed'; font-size: 15px; color: var(--gold); letter-spacing: 3px; font-weight: 700; }
+.etg-sol-live { color: var(--cta); font-size: 11px; font-weight: 700; }
+.etg-sol-grid { display: grid !important; grid-template-columns: 2fr 1fr !important; gap: 14px; }
+.etg-chart {
+  background: rgba(0,18,54,.6); border: 1px solid rgba(0,100,200,.3);
+  border-radius: 6px; padding: 10px; overflow: hidden;
+}
+.etg-chart svg { width: 100%; height: 80px; }
+.etg-zcol { display: flex; flex-direction: column; gap: 8px; }
+.etg-zb { border-radius: 6px; padding: 10px 12px; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+.etg-zb.r { background: rgba(255,50,50,.15); border: 1px solid rgba(255,80,80,.5); color: #ff8080; }
+.etg-zb.s { background: rgba(0,200,83,.15); border: 1px solid rgba(0,200,83,.5); color: #00ff88; }
+.etg-zb-p { font-size: 14px; margin-top: 3px; }
+.etg-calcbar2 {
+  margin-top: 12px; display: grid !important; grid-template-columns: repeat(4,1fr) !important;
+  gap: 8px; background: rgba(212,160,23,.08); border: 1px solid rgba(212,160,23,.3);
+  border-radius: 6px; padding: 10px 16px; text-align: center;
+}
+.etg-cl2 { font-size: 8px; text-transform: uppercase; color: var(--gray); margin-bottom: 3px; }
+.etg-cv2 { font-size: 12px; font-weight: 700; color: var(--gold); }
+.etg-entry2 {
+  display: block; width: 100%; margin-top: 12px; background: var(--cta); color: #000;
+  border-radius: 6px; padding: 12px; font-family: 'Barlow Condensed';
+  font-weight: 900; font-size: 18px; letter-spacing: 3px; text-transform: uppercase;
+  box-shadow: 0 4px 20px rgba(0,200,83,.3); border: none; cursor: pointer;
+}
+
+/* ===== FEATURES GRID ===== */
+#etg-feats { background: var(--blue2); }
+.etg-fgrid {
+  display: grid !important; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 24px !important; margin-top: 50px;
+}
+.etg-fc {
+  background: rgba(0,102,204,.05); border: 1.5px solid rgba(0,102,204,.25);
+  border-radius: 14px; padding: 32px 24px; text-align: center; transition: all .3s ease;
+  position: relative; overflow: hidden;
+}
+.etg-fc::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0); transition: transform .3s;
+}
+.etg-fc:hover::before { transform: scaleX(1); }
+.etg-fc:hover {
+  border-color: var(--gold); background: rgba(0,102,204,.1);
+  transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,102,204,.15);
+}
+.etg-ficon { width: 62px; height: 62px; margin: 0 auto 18px; }
+.etg-ficon svg { width: 100%; height: 100%; }
+.etg-ft {
+  font-family: 'Barlow Condensed'; font-size: 24px; font-weight: 800; color: var(--gold);
+  margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;
+}
+.etg-fd { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.7; }
+
+/* ===== OFFER CARD ===== */
+#etg-offer { background: var(--blue3); }
+.etg-offer-box {
+  max-width: 600px; margin: 0 auto;
+  background: rgba(0,31,63,.8); border: 2px solid var(--gold); border-radius: 20px;
+  padding: 48px 40px; box-shadow: 0 0 60px rgba(212,160,23,.12), 0 0 0 1px rgba(0,102,204,.2);
+}
+.etg-obadge {
+  display: inline-block; background: var(--gold); color: #000;
+  font-family: 'Barlow Condensed'; font-weight: 800; font-size: 14px;
+  letter-spacing: 2px; text-transform: uppercase; padding: 5px 18px;
+  border-radius: 4px; margin-bottom: 24px;
+}
+.etg-oprice {
+  font-family: 'Barlow Condensed'; font-weight: 900; font-size: clamp(58px,12vw,92px);
+  color: var(--gold); line-height: 1; text-shadow: 0 0 30px rgba(212,160,23,.3);
+  margin-bottom: 8px;
+}
+.etg-onormal { font-size: 16px; color: var(--gray); text-decoration: line-through; margin-bottom: 8px; }
+.etg-opay {
+  font-size: 14px; color: var(--cta); font-weight: 700; letter-spacing: 1px; margin-bottom: 28px;
+}
+.etg-olist {
+  text-align: left; margin-bottom: 32px; display: flex; flex-direction: column; gap: 12px;
+}
+.etg-olist li {
+  display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--white);
+}
+.etg-olist li::before {
+  content: '—'; color: var(--gold); font-weight: 700; font-size: 14px; flex-shrink: 0;
+}
+.etg-ocompat { margin-top: 20px; font-size: 12px; color: var(--gray); letter-spacing: .5px; }
+.etg-osec {
+  margin-top: 12px; font-size: 12px; color: var(--gray);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+
+/* ===== FOR WHO GRID ===== */
+#etg-forWho { background: var(--blue1); }
+.etg-fw-grid {
+  display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 24px !important;
+  max-width: 820px; margin: 50px auto 0;
+}
+.etg-fwc { border-radius: 14px; padding: 32px 24px; text-align: left; }
+.etg-fwc.yes {
+  background: rgba(0,200,83,.05); border: 1.5px solid rgba(0,200,83,.25);
+}
+.etg-fwc.no {
+  background: rgba(198,40,40,.05); border: 1.5px solid rgba(198,40,40,.25);
+}
+.etg-fwt {
+  font-family: 'Barlow Condensed'; font-size: 22px; font-weight: 800;
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.etg-fwc.yes .etg-fwt { color: var(--cta); }
+.etg-fwc.no .etg-fwt { color: var(--red); }
+.etg-fwl { display: flex; flex-direction: column; gap: 12px; }
+.etg-fwl li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: rgba(255,255,255,.87); line-height: 1.5;
+}
+.etg-fwl li::before { flex-shrink: 0; font-size: 14px; margin-top: 2px; }
+.etg-fwc.yes .etg-fwl li::before { content: '✓'; color: var(--cta); font-weight: 700; }
+.etg-fwc.no .etg-fwl li::before { content: '✗'; color: var(--red); font-weight: 700; }
+
+/* ===== FAQ ACCORDION (Bootstrap override) ===== */
+#etg-faq { background: var(--blue1); }
+.etg-faq-w { max-width: 720px; margin: 50px auto 0; text-align: left; }
+.etg-faq-i {
+  border: 1px solid rgba(0,102,204,.2); border-radius: 10px;
+  margin-bottom: 12px; overflow: hidden; transition: border-color .3s;
+}
+.etg-faq-i.open { border-color: var(--gold); }
+.etg-faq-q {
+  width: 100%; background: rgba(0,102,204,.05); border: none;
+  padding: 20px 24px; text-align: left; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  font-size: 14px; font-weight: 600; color: var(--white); transition: all .3s;
+}
+.etg-faq-i.open .etg-faq-q { color: var(--gold); background: rgba(0,102,204,.08); }
+.etg-faq-arr { color: var(--gold); font-size: 18px; transition: transform .3s; flex-shrink: 0; }
+.etg-faq-i.open .etg-faq-arr { transform: rotate(180deg); }
+.etg-faq-a {
+  max-height: 0; overflow: hidden; transition: max-height .35s ease;
+  padding: 0 24px; font-size: 13px; line-height: 1.75; color: rgba(255,255,255,.75);
+  background: rgba(0,102,204,.03);
+}
+.etg-faq-i.open .etg-faq-a { max-height: 220px; padding: 16px 24px 20px; }
+
+/* ===== FINAL CTA ===== */
+#etg-final {
+  background: var(--blue4); padding: 100px 0; text-align: center; position: relative; overflow: hidden;
+}
+#etg-final::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0,102,204,.2) 0%, transparent 70%);
+}
+.etg-final-inner { position: relative; z-index: 2; max-width: 740px; margin: 0 auto; }
+.etg-final-inner .etg-title {
+  color: var(--white); font-size: clamp(34px,6vw,64px); margin-bottom: 12px;
+  text-shadow: 0 2px 20px rgba(0,0,0,.4);
+}
+.etg-final-inner .etg-title span { color: var(--gold); }
+.etg-final-accent {
+  font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 40px;
+  letter-spacing: 1.5px; font-weight: 500;
+}
+.etg-final-sub { margin-top: 16px; font-size: 12px; color: rgba(255,255,255,.4); }
+.etg-final-sub strong { color: rgba(255,255,255,.7); }
+
+/* ===== FOOTER ===== */
+#etg-foot {
+  background: #050505; padding: 36px 0; text-align: center;
+  border-top: 1px solid rgba(0,102,204,.15);
+}
+.etg-foot-logo {
+  font-family: 'Barlow Condensed'; font-weight: 800; font-size: 24px;
+  color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px;
+}
+.etg-foot-wa {
+  display: inline-flex; align-items: center; gap: 8px; color: var(--cta);
+  font-size: 13px; font-weight: 600; text-decoration: none; margin-bottom: 16px;
+}
+.etg-foot-links {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: 8px 20px; margin-bottom: 16px;
+}
+.etg-foot-links a {
+  color: var(--gray); text-decoration: none; font-size: 12px; transition: color .2s;
+}
+.etg-foot-links a:hover { color: var(--gold); }
+.etg-foot-disc {
+  font-size: 11px; color: rgba(255,255,255,.2); max-width: 600px;
+  margin: 0 auto; line-height: 1.6;
+}
+.etg-foot-copy { font-size: 11px; color: rgba(255,255,255,.12); margin-top: 10px; }
+
+/* ===== BOOTSTRAP OVERRIDES ===== */
+/* Dark theme base */
+body { --bs-body-bg: var(--blue1); --bs-body-color: var(--white); }
+.btn { --bs-btn-padding-x: 1.5rem; --bs-btn-padding-y: 0.75rem; }
+.card { --bs-card-bg: var(--blue1); --bs-card-border-color: var(--blueAcc); }
+
+/* Custom grid utilities */
+@media (max-width: 768px) {
+  .etg-tgrid, .etg-fgrid, .etg-fw-grid, .etg-sol-grid { grid-template-columns: 1fr !important; }
+  .etg-ea-calc, .etg-calcbar2 { grid-template-columns: repeat(2,1fr) !important; }
+}
+@media (max-width: 480px) {
+  body { padding-top: 54px !important; }
+  #etg-banner { font-size: 12px; padding: 8px 12px; line-height: 1.5; }
+  .etg-cta { font-size: 14px !important; padding: 16px 20px !important; width: 100% !important; }
+  .etg-offer-box { padding: 28px 18px; }
+  .etg-h1 { font-size: 38px; }
+  .etg-ticker-item { padding: 0 28px; font-size: 12px; }
+}
+
+/* Print & other utilities */
+@media print { body { padding-top: 0 !important; } }
