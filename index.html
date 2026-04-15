@@ -76,6 +76,7 @@
       background: #0F131C;
       border-radius: 28px;
       padding: 28px 26px;
+      text-align: start;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.6);
       border: 1px solid #222A3A;
@@ -428,7 +429,7 @@
       }
 
       .price-big {
-        font-size: 2.5rem;
+        font-size: 3rem;
       }
 
       .live-ticker {
@@ -442,6 +443,7 @@
 
       .swiper-slide-active .testimonial-card {
         transform: scale(1);
+        
       }
 
       .testimonial-quote {
@@ -470,6 +472,7 @@
 
       .card {
         padding: 20px 18px;
+        text-align: start;
       }
 
       h1 {
@@ -515,18 +518,19 @@
       }
 
       .checklist li, .crosslist li {
-        justify-content: center;
+        justify-content: start;
         text-align: left;
       }
 
       .card {
-        text-align: center;
+        text-align: start;
       }
 
-      .card h3 {
+      .card h2 {
         text-align: center;
         display: block;
         margin-bottom: 10px;
+        font-size: 35Px;
       }
 
       .faq-question {
@@ -549,7 +553,7 @@
       }
 
       .price-big {
-        font-size: 2rem;
+        font-size: 3.6rem;
       }
 
       .testimonial-card {
@@ -604,13 +608,13 @@
       <div class="grid-2 hero-grid" style="align-items: center;">
         <div class="hero-text">
           <span class="badge hero-badge"><i class="fas fa-chart-line"></i> Expert Advisor / Indicateur MetaTrader 5</span>
-          <h1 class="hero-title" style="font-size: 1rem; line-height: 1.2; margin: 24px 0 16px; text-transform: uppercase;">Arrête de trader à<br> <span class="text-gold">L'INSTINCT.</span><br> Voici l'outil que j'utilise moi-même chaque jour</h1>
+          <h1 class="hero-title" style="font-size: 3rem; line-height: 1.2; margin: 24px 0 16px; text-transform: uppercase;">Arrête de trader à<br> <span class="text-gold">L'INSTINCT.</span><br> Voici <div class="text-gold">l'outil que j'utilise</div> moi-même chaque jour</h1>
           <p class="hero-desc" style="font-size: 1.2rem; color: #B9C3D9; margin-bottom: 28px; text-transform: uppercase;">ETG Advanced PA Secured détecte tes zones, calcule ton risque et exécute tes ordres — pendant que toi tu prends la décision.</p>
           <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary hero-cta" id="ctaHero"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
           <div class="hero-info" style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.85rem; font-weight: 500;">
             <span><i class="fas fa-credit-card" style="color:#E5A12E;"></i> Paiement unique</span>
             <span><i class="fas fa-ban" style="color:#E5A12E;"></i> Aucun abonnement</span>
-            <span><i class="fas fa-chart-simple" style="color:#E5A12E;"></i> 50 licences disponibles</span>
+            <span><i class="fa-solid fa-lock" style="color:#E5A12E;"></i> 50 licences disponibles</span>
             <span><i class="fas fa-sync-alt" style="color:#E5A12E;"></i> Toutes les mises à jour incluses</span>
           </div>
         </div>
@@ -776,7 +780,7 @@
         <span class="badge" style="background: #E5A12E; color:#07090E;">Offre éclair</span>
         <h2 style="font-size: 2rem; margin: 20px 0 8px;">Ton investissement aujourd'hui</h2>
         <p>50 LICENCES DISPONIBLES À</p>
-        <div class="price-big">19.900 FCFA</div>
+        <div class="price-big">19.900<span style="font-size: 2rem;"> FCFA</span></div>
         <div class="old-price">Prix normal : 35.000 FCFA</div>
         <p style="margin: 18px 0;"><i class="fas fa-check-circle" style="color:#E5A12E;"></i> Paiement unique — AUCUN ABONNEMENT. JAMAIS</p>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin: 24px 0;">
@@ -797,7 +801,7 @@
       <h2 class="section-title">C'EST FAIT POUR TOI ?</h2>
       <div class="grid-2">
         <div class="card">
-          <h3><i class="fas fa-thumbs-up" style="color:#E5A12E;"></i> C'est pour toi si...</h3>
+          <h2><i class="fas fa-thumbs-up" style="color:#E5A12E;"></i> C'est pour toi si...</h3>
           <ul class="checklist" style="margin-top: 20px;">
             <li><i class="fas fa-check-circle"></i> Tu veux structurer ta stratégie de trading</li>
             <li><i class="fas fa-check-circle"></i> Tu cherches un outil pro clé en main</li>
@@ -807,8 +811,8 @@
           </ul>
         </div>
         <div class="card">
-          <h3><i class="fas fa-thumbs-down" style="color:#E34F4F;"></i> Pas pour toi si...</h3>
-          <ul class="crosslist" style="margin-top: 20px;">
+          <h2><i class="fas fa-thumbs-down" style="color:#E34F4F;"></i> Pas pour toi si...</h2>
+          <ul class="crosslist text-align-start" style="margin-top: 20px;">
             <li><i class="fas fa-times-circle"></i> Tu cherches un robot qui trade à ta place</li>
             <li><i class="fas fa-times-circle"></i> Tu veux des garanties de profits</li>
             <li><i class="fas fa-times-circle"></i> Tu n'as pas de compte MT5</li>
