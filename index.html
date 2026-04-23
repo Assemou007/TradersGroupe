@@ -21,7 +21,6 @@
       overflow-x: hidden;
     }
 
-    /* Vidéo en arrière-plan */
     #bg-video {
       position: fixed;
       top: 50%;
@@ -33,6 +32,9 @@
       transform: translate(-50%, -50%);
       z-index: 0;
       object-fit: cover;
+      filter: blur(3px) saturate(0.6) brightness(0.4);
+      opacity: 0.5;
+      pointer-events: none;
     }
 
     body::after {
@@ -41,10 +43,10 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(11, 19, 34, 0.75) 0%,
-        rgba(11, 19, 34, 0.60) 30%,
-        rgba(11, 19, 34, 0.65) 70%,
-        rgba(11, 19, 34, 0.85) 100%
+        rgba(11, 19, 34, 0.85) 0%,
+        rgba(11, 19, 34, 0.75) 30%,
+        rgba(11, 19, 34, 0.80) 70%,
+        rgba(11, 19, 34, 0.92) 100%
       );
       z-index: 1;
       pointer-events: none;
@@ -79,6 +81,69 @@
       box-shadow: 0 4px 20px rgba(229, 161, 46, 0.3);
     }
 
+    /* ============================================
+       ANIMATION SQUASH & STRETCH — VERSION DESKTOP
+       Bouton large → peut supporter du scaleX sans déborder
+       ============================================ */
+    @keyframes petitSursautDesktop {
+      0% {
+        transform: translateY(0) scaleX(1) scaleY(1);
+      }
+      8% {
+        transform: translateY(3px) scaleX(1.12) scaleY(0.78);
+      }
+      22% {
+        transform: translateY(-18px) scaleX(0.93) scaleY(1.10);
+      }
+      38% {
+        transform: translateY(-22px) scaleX(0.90) scaleY(1.06);
+      }
+      52% {
+        transform: translateY(3px) scaleX(1.08) scaleY(0.82);
+      }
+      66% {
+        transform: translateY(-9px) scaleX(0.95) scaleY(1.05);
+      }
+      80% {
+        transform: translateY(1px) scaleX(1.02) scaleY(0.96);
+      }
+      100% {
+        transform: translateY(0) scaleX(1) scaleY(1);
+      }
+    }
+
+    /* ============================================
+       ANIMATION SQUASH & STRETCH — VERSION MOBILE
+       Plus subtile : scaleX réduit, translateY réduit
+       pour éviter tout débordement horizontal
+       ============================================ */
+    @keyframes petitSursautMobile {
+      0% {
+        transform: translateY(0) scaleX(1) scaleY(1);
+      }
+      8% {
+        transform: translateY(2px) scaleX(1.04) scaleY(0.88);
+      }
+      22% {
+        transform: translateY(-8px) scaleX(0.97) scaleY(1.05);
+      }
+      38% {
+        transform: translateY(-10px) scaleX(0.96) scaleY(1.03);
+      }
+      52% {
+        transform: translateY(2px) scaleX(1.03) scaleY(0.92);
+      }
+      66% {
+        transform: translateY(-5px) scaleX(0.98) scaleY(1.02);
+      }
+      80% {
+        transform: translateY(1px) scaleX(1.01) scaleY(0.98);
+      }
+      100% {
+        transform: translateY(0) scaleX(1) scaleY(1);
+      }
+    }
+
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -98,12 +163,53 @@
       font-family: 'League Spartan', sans-serif;
       position: relative;
       z-index: 30;
+
+      /* Desktop : animation ample avec Squash & Stretch */
+      animation: petitSursautDesktop 2.8s ease-in-out infinite;
+      transform-origin: bottom center;
+      will-change: transform;
     }
 
     .btn-primary:hover {
+      animation-play-state: paused;
       transform: translateY(-3px);
       background: linear-gradient(105deg, #F0B341 0%, #D88B1A 100%);
       box-shadow: 0 20px 28px -12px rgba(229, 161, 46, 0.6);
+    }
+
+    /* RESPONSIVE : animation plus discrète sur mobile */
+    @media (max-width: 768px) {
+      .btn-primary {
+        animation-name: petitSursautMobile;
+        animation-duration: 2.8s;
+        /* Le bouton est en pleine largeur, on réduit l'amplitude */
+        transform-origin: center bottom;
+        font-size: 1rem;
+        padding: 12px 22px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .btn-primary {
+        animation-name: petitSursautMobile;
+        animation-duration: 2.8s;
+        font-size: 0.9rem;
+        padding: 12px 18px;
+        transform-origin: center bottom;
+      }
+    }
+
+    /* Accessibilité : pas d'animation si l'utilisateur préfère */
+    @media (prefers-reduced-motion: reduce) {
+      .btn-primary {
+        animation: none;
+      }
     }
 
     .card {
@@ -285,13 +391,12 @@
     footer { background: #04070C; padding: 40px 0; text-align: center; font-size: 0.7rem; border-top: 1px solid #1F2838; position: relative; z-index: 10; }
     .display-flex { display: flex; } .flex-column { flex-direction: column; } .align-center { align-items: center; }
 
-    /* RESPONSIVE */
+    /* RESPONSIVE GLOBAL */
     @media (max-width: 1024px) { .e-fgrid { grid-template-columns: repeat(2, 1fr); gap: 25px; } }
 
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
       .grid-2 { grid-template-columns: 1fr; gap: 30px; }
-      .btn-primary { font-size: 1rem; padding: 12px 22px; width: 100%; text-align: center; }
       .price-big { font-size: 3rem; }
       .live-ticker { animation-duration: 35s; }
       .feed-item { font-size: 0.7rem; padding: 5px 16px; }
@@ -330,7 +435,6 @@
       .hero-info { flex-direction: column !important; gap: 10px !important; align-items: center; }
       .hero-desc { font-size: 1rem !important; }
       h1 { font-size: 2.3rem !important; }
-      .btn-primary { font-size: 0.9rem; padding: 12px 18px; }
       .e-fc { max-width: 100%; }
     }
   </style>
@@ -338,12 +442,10 @@
 </head>
 <body>
 
-<!-- VIDÉO DE TRADING EN ARRIÈRE-PLAN -->
-<video id="bg-video" autoplay muted loop playsinline preload="auto">
+<!-- <video id="bg-video" autoplay muted loop playsinline preload="auto">
   <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
-  <!-- Fallback vers une autre vidéo de trading si la première ne charge pas -->
-  <source src="https://videos.pexels.com/video-files/6733713/6733713-uhd_2560_1440_25fps.mp4" type="video/mp4">
-</video>
+  <source src="./assets/img/ma-video-trading.mp4" type="video/mp4">
+</video> -->
 
 <div class="top-banner">
   <i class="fas fa-bolt" style="margin-right: 8px;"></i> OFFRE DE LANCEMENT — 50 LICENCES UNIQUEMENT À 19.900 FCFA · APRÈS : 35.000 FCFA
@@ -550,7 +652,7 @@
 <footer>
   <div class="container">
     <p>L'EA NE GARANTIT PAS DE PROFITS. LE TRADING COMPORTE DES RISQUES IMPORTANTS DE PERTE EN CAPITAL.</p>
-    <p style="margin-top: 12px;">© 2025 ELITE TRADERS GROUP · TOUS DROITS RÉSERVÉS</p>
+    <p style="margin-top: 12px;">© 2026 ELITE TRADERS GROUP · TOUS DROITS RÉSERVÉS</p>
   </div>
 </footer>
 
@@ -593,7 +695,7 @@
   const firstFaq = document.querySelector('.faq-item');
   if(firstFaq) firstFaq.classList.add('active');
 
-  // VIDEO PLAYBACK (fallback si autoplay bloqué)
+  // VIDEO PLAYBACK
   const bgVideo = document.getElementById('bg-video');
   if (bgVideo) {
     bgVideo.play().catch(() => {
@@ -607,12 +709,3 @@
 </script>
 </body>
 </html>
-
-<video id="bg-video" autoplay muted loop playsinline preload="auto">
-  <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
-</video>
-
-<video id="bg-video" autoplay muted loop playsinline preload="auto">
-  <source src="./assets/img/ma-video-trading.mp4" type="video/mp4">
-</video>
-
