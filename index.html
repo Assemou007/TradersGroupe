@@ -9,18 +9,25 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: linear-gradient(to right,#070f1c,#000206);
+      background: #0b1322;
       font-family: 'Montserrat', sans-serif;
       color: #EFF3F8;
       line-height: 1.5;
       scroll-behavior: smooth;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(11,19,34,0.82) 0%, rgba(11,19,34,0.97) 100%);
+      z-index: 0;
+      pointer-events: none;
     }
 
     h1, h2, h3, .logo, .cta-title, .price, .btn-primary, .section-title {
@@ -33,6 +40,8 @@
       max-width: 1280px;
       margin: 0 auto;
       padding: 0 24px;
+      position: relative;
+      z-index: 10;
     }
 
     .top-banner {
@@ -45,6 +54,30 @@
       letter-spacing: 0.8px;
       font-family: 'League Spartan', sans-serif;
       text-transform: uppercase;
+      position: relative;
+      z-index: 20;
+      box-shadow: 0 4px 20px rgba(229, 161, 46, 0.3);
+    }
+
+    @keyframes cta-jump {
+      0%, 100% { transform: scale(1) translateY(0); box-shadow: 0 12px 25px -10px rgba(229, 161, 46, 0.6); }
+      15% { transform: scale(1.05) translateY(-6px); }
+      30% { transform: scale(1) translateY(0); }
+      45% { transform: scale(1.03) translateY(-3px); }
+      60% { transform: scale(1) translateY(0); }
+      75% { transform: scale(1.02) translateY(-2px); }
+      90% { transform: scale(1) translateY(0); }
+    }
+
+    @keyframes cta-shake {
+      0%, 100% { transform: translateX(0) scale(1); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-3px) scale(1.02); }
+      20%, 40%, 60%, 80% { transform: translateX(3px) scale(1.02); }
+    }
+
+    @keyframes cta-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(229, 161, 46, 0.6), 0 0 40px rgba(229, 161, 46, 0.3), 0 0 60px rgba(229, 161, 46, 0.1); }
+      50% { box-shadow: 0 0 30px rgba(229, 161, 46, 0.9), 0 0 60px rgba(229, 161, 46, 0.5), 0 0 90px rgba(229, 161, 46, 0.2); }
     }
 
     .btn-primary {
@@ -59,44 +92,83 @@
       padding: 14px 34px;
       border-radius: 60px;
       text-decoration: none;
-      transition: all 0.25s ease;
+      transition: all 0.15s ease;
       border: none;
       cursor: pointer;
-      box-shadow: 0 12px 20px -12px rgba(198, 122, 15, 0.5);
       font-family: 'League Spartan', sans-serif;
+      position: relative;
+      z-index: 30;
+      animation: cta-jump 2s ease-in-out infinite, cta-glow 1.5s ease-in-out infinite;
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px);
-      background: linear-gradient(105deg, #F0B341 0%, #D88B1A 100%);
-      box-shadow: 0 20px 28px -12px rgba(229, 161, 46, 0.6);
+      animation: cta-shake 0.4s ease, cta-glow 0.3s ease-in-out infinite;
+      transform: scale(1.08) !important;
+      background: linear-gradient(105deg, #F5B847 0%, #D88B1A 100%);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 64px;
+      background: radial-gradient(circle, rgba(255,215,100,0.5) 0%, transparent 60%);
+      animation: pulse-ring 1.5s ease-out infinite;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    .btn-primary::after {
+      content: '🔥';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      font-size: 1.2rem;
+      animation: bounce-emoji 1s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes bounce-emoji {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.2); }
     }
 
     .card {
-      background: #0F131C;
+      background: rgba(15, 23, 36, 0.95);
       border-radius: 28px;
       padding: 28px 26px;
       text-align: start;
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.6);
-      border: 1px solid #222A3A;
+      border: 1px solid #2a3a5a;
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(10px);
     }
 
     .card:hover {
       transform: translateY(-5px);
-      border-color: #C67A0F;
-      box-shadow: 0 28px 40px -18px #000000;
+      border-color: #E5A12E;
+      box-shadow: 0 28px 40px -18px rgba(229, 161, 46, 0.3);
     }
 
     .grid-2 { display: grid; gap: 30px; grid-template-columns: repeat(2, 1fr); }
 
     .live-feed {
-      background: #0A0D14;
+      background: rgba(10, 20, 40, 0.95);
       border-radius: 24px;
       padding: 16px 20px;
       margin-top: 48px;
       border-left: 5px solid #E9B34B;
       overflow: hidden;
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(10px);
     }
 
     .live-ticker {
@@ -106,10 +178,7 @@
       gap: 2rem;
       width: fit-content;
     }
-
-    .live-ticker:hover {
-      animation-play-state: paused;
-    }
+    .live-ticker:hover { animation-play-state: paused; }
 
     .feed-item {
       display: inline-flex;
@@ -119,100 +188,52 @@
       padding: 8px 24px;
       white-space: nowrap;
       flex-shrink: 0;
-      background: rgba(229, 161, 46, 0.1);
+      background: rgba(229, 161, 46, 0.15);
       border-radius: 40px;
+      border: 1px solid rgba(229, 161, 46, 0.3);
     }
-
-    .feed-icon {
-      color: #E5A12E;
-      font-size: 0.7rem;
-    }
-
-    @keyframes ticker-scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    .feed-icon { color: #E5A12E; font-size: 0.7rem; animation: pulse-dot 1.5s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.8); } }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     .badge {
-      background: #E5A12E20;
+      background: rgba(229, 161, 46, 0.2);
       color: #E5A12E;
       padding: 6px 14px;
       border-radius: 40px;
       font-size: 0.7rem;
       font-weight: 700;
+      border: 1px solid rgba(229, 161, 46, 0.4);
     }
 
-    .testimonials-slider {
-      width: 100%;
-      padding: 20px 0 60px;
-      position: relative;
-    }
-
+    .testimonials-slider { width: 100%; padding: 20px 0 60px; position: relative; z-index: 10; }
     .testimonial-card {
-      background: #0F131C;
+      background: rgba(15, 23, 36, 0.95);
       border-radius: 24px;
       padding: 32px 24px;
       text-align: center;
-      border: 1px solid #2A3448;
+      border: 1px solid #2a3a5a;
       transition: all 0.3s ease;
       margin: 10px;
       height: auto;
+      backdrop-filter: blur(10px);
     }
-
     .swiper-slide-active .testimonial-card {
       transform: scale(1.05);
       border: 2px solid #E5A12E;
       box-shadow: 0 0 30px rgba(229, 161, 46, 0.4);
-      background: #161E2C;
+      background: rgba(22, 30, 44, 0.98);
     }
+    .testimonial-stars { color: #E5A12E; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 20px; }
+    .testimonial-quote { font-size: 1rem; line-height: 1.6; color: #EFF3F8; margin-bottom: 20px; font-style: italic; }
+    .testimonial-author { font-weight: 700; color: #E5A12E; font-size: 0.95rem; }
+    .swiper-pagination-bullet { background: #E5A12E; opacity: 0.5; }
+    .swiper-pagination-bullet-active { opacity: 1; background: #E5A12E; }
+    .swiper-button-prev, .swiper-button-next { color: #E5A12E; }
 
-    .testimonial-stars {
-      color: #E5A12E;
-      font-size: 1.2rem;
-      letter-spacing: 4px;
-      margin-bottom: 20px;
-    }
-
-    .testimonial-quote {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #EFF3F8;
-      margin-bottom: 20px;
-      font-style: italic;
-    }
-
-    .testimonial-author {
-      font-weight: 700;
-      color: #E5A12E;
-      font-size: 0.95rem;
-    }
-
-    .swiper-pagination-bullet {
-      background: #E5A12E;
-      opacity: 0.5;
-    }
-
-    .swiper-pagination-bullet-active {
-      opacity: 1;
-      background: #E5A12E;
-    }
-
-    .swiper-button-prev,
-    .swiper-button-next {
-      color: #E5A12E;
-    }
-
-    .checklist li, .crosslist li {
-      list-style: none;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 500;
-    }
-
-    .checklist li i { color: #E5A12E; font-size: 1.3rem; width: 28px; }
-    .crosslist li i { color: #E34F4F; font-size: 1.3rem; width: 28px; }
+    .checklist li, .crosslist li { list-style: none; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; font-weight: 500; }
+    .checklist li i { color: #4ADE80; font-size: 1.3rem; width: 28px; }
+    .crosslist li i { color: #F87171; font-size: 1.3rem; width: 28px; }
 
     .price-big {
       font-size: 3.4rem;
@@ -220,16 +241,12 @@
       color: #E5A12E;
       font-family: 'League Spartan', sans-serif;
       letter-spacing: -1px;
+      text-shadow: 0 0 20px rgba(229, 161, 46, 0.5);
     }
-
-    .old-price {
-      text-decoration: line-through;
-      color: #8E9AAF;
-      font-size: 1.2rem;
-    }
+    .old-price { text-decoration: line-through; color: #8E9AAF; font-size: 1.2rem; }
 
     .faq-question {
-      background: #0F131C;
+      background: rgba(15, 23, 36, 0.95);
       padding: 18px 24px;
       border-radius: 20px 20px 6px 6px;
       cursor: pointer;
@@ -238,366 +255,122 @@
       justify-content: space-between;
       align-items: center;
       transition: 0.2s;
-      border: 1px solid #222A3A;
-      /* margin-bottom: 1em; */
+      border: 1px solid #2a3a5a;
+      backdrop-filter: blur(10px);
     }
-
-    .faq-question:hover { background: #171E2B; border-color: #E5A12E70; }
+    .faq-question:hover { background: rgba(23, 30, 43, 0.98); border-color: #E5A12E; }
     .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-out;
-      background: #090C12;
-      border-radius: 0 0 20px 20px;
-      padding: 0 24px;
-      margin-top: -7px;
-      color: #C9D1E6;
-      margin-bottom: 1em;
+      max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
+      background: rgba(9, 12, 18, 0.95); border-radius: 0 0 20px 20px;
+      padding: 0 24px; margin-top: -7px; color: #C9D1E6; margin-bottom: 1em;
+      backdrop-filter: blur(10px);
     }
-
-    .faq-item.active .faq-answer {
-      max-height: 280px;
-      padding: 18px 24px 24px 24px;
-    }
-
-    .faq-item.active .faq-question i {
-      transform: rotate(180deg);
-    }
+    .faq-item.active .faq-answer { max-height: 280px; padding: 18px 24px 24px 24px; }
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
 
     .img-placeholder {
-      background: linear-gradient(145deg, #131A24, #0A0D14);
+      background: linear-gradient(145deg, #1a2a4a, #0d1b36);
       border-radius: 24px;
       padding: 10px;
       text-align: center;
-      border: 1px dashed #E5A12E80;
-    }
-  
-    #etg-feats {
-      background: #001428;
-      padding: 60px 0;
+      border: 2px dashed rgba(229, 161, 46, 0.5);
     }
 
-    .e-fgrid { 
-      display: grid; 
-      grid-template-columns: repeat(4, 1fr);
-      gap: 30px; 
-      margin-top: 48px;
-      max-width: 1200px; 
-      margin-left: auto;
-      margin-right: auto;
-    }
+    #etg-feats { background: linear-gradient(180deg, #0a1628 0%, #1a2a4a 100%); padding: 60px 0; position: relative; }
+    .e-fgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 48px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .e-fc { background: #fff; border-radius: 14px; overflow: hidden; width: 100%; box-shadow: 0 8px 40px rgba(0, 0, 0, .4); transition: transform .3s ease, box-shadow .3s ease; display: flex; flex-direction: column; height: 100%; }
+    .e-fc:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(229, 161, 46, 0.3); }
+    .e-fc-head { background: #E5A12E; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+    .e-fc-head i { color: #05012e; font-size: 2rem; }
+    .e-fc-title { font-family: 'League Spartan', sans-serif; font-size: 17px; font-weight: 900; color: #000; text-transform: uppercase; letter-spacing: .5px; text-align: center; margin: 0; }
+    .e-fc-body { padding: 20px; background: #fff; flex: 1; display: flex; flex-direction: column; }
+    .e-fc-photo { width: 100%; height: auto; background: #e8e8e8; border-radius: 6px; min-height: 180px; max-height: 220px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; margin-bottom: 12px; overflow: hidden; }
+    .e-fc-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .e-fc-desc { font-size: 13px; color: #333; line-height: 1.6; font-family: 'Montserrat', sans-serif; text-align: left; }
 
-    .e-fc { 
-      background: #fff;
-      border-radius: 14px;
-      overflow: hidden;
-      width: 100%;
-      box-shadow: 0 8px 40px rgba(0, 0, 0, .4);
-      transition: transform .3s ease, box-shadow .3s ease;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .e-fc:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
-    }
-
-    .e-fc-head { 
-      background: #E5A12E;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-align: center;
-    }
-
-    .e-fc-head i {
-      color: #05012e;
-      font-size: 2rem;
-    }
-
-    .e-fc-title {
-      font-family: 'League Spartan', sans-serif;
-      font-size: 17px;
-      font-weight: 900;
-      color: #000;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      text-align: center;
-      margin: 0;
-    }
-
-    .e-fc-body {
-      padding: 20px;
-      background: #fff;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .e-fc-photo {
-      width: 100%;
-      height: auto;
-      background: #e8e8e8;
-      border-radius: 6px;
-      min-height: 180px;
-      max-height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-size: 12px;
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-      overflow: hidden;
-    }
-
-    .e-fc-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
-      display: block;
-    }
-
-    .e-fc-desc {
-      font-size: 13px;
-      color: #333;
-      line-height: 1.6;
-      font-family: 'Montserrat', sans-serif;
-      text-align: left;
-    }
-
-    section {
-      padding: 60px 0;
-    }
-
+    section { padding: 60px 0; position: relative; }
     .section-title {
-      font-size: 4rem;
-      margin-bottom: 48px;
-      text-align: center;
-      font-weight: 800;
-      color: #E5A12E;
-      letter-spacing: -0.5px;
-      text-transform: uppercase;
+      font-size: 4rem; margin-bottom: 48px; text-align: center; font-weight: 800;
+      color: #E5A12E; letter-spacing: -0.5px; text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(229, 161, 46, 0.4);
     }
-
     .text-gold {
-      background: linear-gradient(135deg, #F5C572, #E5A12E);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      background: linear-gradient(135deg, #FFD76E, #E5A12E, #FFC44D);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: text-shine 3s ease-in-out infinite;
     }
+    @keyframes text-shine { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.3); } }
 
-    footer {
-      background: #04070C;
-      padding: 40px 0;
-      text-align: center;
-      font-size: 0.7rem;
-      border-top: 1px solid #1F2838;
+    footer { background: #04070C; padding: 40px 0; text-align: center; font-size: 0.7rem; border-top: 1px solid #1F2838; position: relative; z-index: 10; }
+    .display-flex { display: flex; } .flex-column { flex-direction: column; } .align-center { align-items: center; }
+
+    /* ========== GRAPHIQUE TRADING RÉALISTE ========== */
+    #trading-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.2;
     }
-
-    .display-flex { display: flex; }
-    .flex-column { flex-direction: column; }
-    .align-center { align-items: center; }
 
     /* ========== RESPONSIVE ========== */
-    @media (max-width: 1024px) {
-      .e-fgrid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
-      }
-    }
-
+    @media (max-width: 1024px) { .e-fgrid { grid-template-columns: repeat(2, 1fr); gap: 25px; } }
     @media (max-width: 768px) {
-      .container {
-        padding: 0 20px;
-      }
-
-      .grid-2 {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .btn-primary {
-        font-size: 1rem;
-        padding: 12px 22px;
-        width: 100%;
-        text-align: center;
-      }
-
-      .price-big {
-        font-size: 3rem;
-      }
-
-      .live-ticker {
-        animation-duration: 35s;
-      }
-
-      .feed-item {
-        font-size: 0.7rem;
-        padding: 5px 16px;
-      }
-
-      .swiper-slide-active .testimonial-card {
-        transform: scale(1);
-        
-      }
-
-      .testimonial-quote {
-        font-size: 0.9rem;
-      }
-
-      .section-title {
-        font-size: 2rem;
-        margin-bottom: 30px;
-      }
-
-      .e-fgrid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .e-fc {
-        max-width: 100%;
-        justify-items: center;
-        margin: 0 auto;
-      }
-
-      .e-fc-body {
-        padding: 16px;
-      }
-
-      .card {
-        padding: 20px 18px;
-        text-align: start;
-      }
-
-      h1 {
-        font-size: 2rem !important;
-      }
-
-      /* === HERO mobile: image après le badge === */
-      .hero-grid {
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 20px;
-      }
-
-      .hero-text {
-        display: contents;
-      }
-
+      .container { padding: 0 20px; }
+      .grid-2 { grid-template-columns: 1fr; gap: 30px; }
+      .btn-primary { font-size: 1rem; padding: 12px 22px; width: 100%; text-align: center; animation: cta-jump 2.5s ease-in-out infinite, cta-glow 2s ease-in-out infinite; }
+      .price-big { font-size: 3rem; }
+      .live-ticker { animation-duration: 35s; }
+      .feed-item { font-size: 0.7rem; padding: 5px 16px; }
+      .swiper-slide-active .testimonial-card { transform: scale(1); }
+      .testimonial-quote { font-size: 0.9rem; }
+      .section-title { font-size: 2rem; margin-bottom: 30px; }
+      .e-fgrid { grid-template-columns: 1fr; gap: 20px; }
+      .e-fc { max-width: 100%; margin: 0 auto; }
+      .e-fc-body { padding: 16px; }
+      .card { padding: 20px 18px; text-align: start; }
+      h1 { font-size: 2rem !important; }
+      .hero-grid { display: flex !important; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+      .hero-text { display: contents; }
       .hero-badge { order: 1; }
-      .hero-image {
-        order: 2;
-        width: 100%;
-        margin: 16px 0;
-      }
+      .hero-image { order: 2; width: 100%; margin: 16px 0; }
       .hero-title { order: 3; }
       .hero-desc { order: 4; }
       .hero-cta { order: 5; }
-      .hero-info {
-        order: 6;
-        justify-content: center !important;
-        text-align: center;
-      }
-
-      /* === Tout en block et centré sur mobile === */
-      section {
-        text-align: center;
-      }
-
-      .display-flex {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .checklist li, .crosslist li {
-        justify-content: start;
-        text-align: left;
-      }
-
-      .card {
-        text-align: start;
-      }
-
-      .card h2 {
-        text-align: center;
-        display: block;
-        margin-bottom: 10px;
-        font-size: 35Px;
-      }
-
-      .faq-question {
-        text-align: left;
-      }
-
-      .live-feed {
-        text-align: left;
-      }
+      .hero-info { order: 6; justify-content: center !important; text-align: center; }
+      section { text-align: center; }
+      .display-flex { flex-direction: column; align-items: center; }
+      .checklist li, .crosslist li { justify-content: start; text-align: left; }
+      .card { text-align: start; }
+      .card h2 { text-align: center; display: block; margin-bottom: 10px; font-size: 35px; }
+      .faq-question { text-align: left; }
+      .live-feed { text-align: left; }
     }
-
     @media (max-width: 480px) {
-      .top-banner {
-        font-size: 0.7rem;
-        padding: 8px 12px;
-      }
-
-      .section-title {
-        font-size: 2rem;
-      }
-
-      .price-big {
-        font-size: 3.6rem;
-      }
-
-      .testimonial-card {
-        padding: 20px 16px;
-      }
-
-      .testimonial-quote {
-        font-size: 0.8rem;
-      }
-
-      .swiper-button-prev,
-      .swiper-button-next {
-        display: none;
-      }
-
-      .hero-info {
-        flex-direction: column !important;
-        gap: 10px !important;
-        align-items: center;
-      }
-
-      .hero-desc {
-        font-size: 1rem !important;
-      }
-
-      h1 {
-        font-size: 2.3rem !important;
-      }
-
-      .btn-primary {
-        font-size: 0.9rem;
-        padding: 12px 18px;
-      }
-
-      .e-fc {
-        max-width: 100%;
-      }
+      .top-banner { font-size: 0.7rem; padding: 8px 12px; }
+      .section-title { font-size: 2rem; }
+      .price-big { font-size: 3.6rem; }
+      .testimonial-card { padding: 20px 16px; }
+      .testimonial-quote { font-size: 0.8rem; }
+      .swiper-button-prev, .swiper-button-next { display: none; }
+      .hero-info { flex-direction: column !important; gap: 10px !important; align-items: center; }
+      .hero-desc { font-size: 1rem !important; }
+      h1 { font-size: 2.3rem !important; }
+      .btn-primary { font-size: 0.9rem; padding: 12px 18px; }
+      .e-fc { max-width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .btn-primary, .live-ticker, .text-gold { animation: none !important; }
+      .btn-primary:hover { transform: scale(1.05) !important; }
+      .btn-primary::after { display: none; }
     }
   </style>
   <link rel="shortcut icon" href="./assets/img/favi.png" type="image/x-icon">
 </head>
 <body>
+
+<canvas id="trading-bg"></canvas>
 
 <div class="top-banner">
   <i class="fas fa-bolt" style="margin-right: 8px;"></i> OFFRE DE LANCEMENT — 50 LICENCES UNIQUEMENT À 19.900 FCFA · APRÈS : 35.000 FCFA
@@ -636,97 +409,24 @@
     </div>
   </section>
 
-  <!-- Témoignages SLIDER -->
-  <section style="background: #010e277a;">
+  <!-- Témoignages -->
+  <section style="background: rgba(1, 14, 39, 0.6);">
     <div class="container">
       <h2 class="section-title">CE QUE DISENT CEUX QUI L'UTILISENT DÉJÀ</h2>
-      
       <div class="testimonials-slider swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“L'algo détecte les tendances avec justesse. Moins d'erreurs émotionnelles.”</div>
-              <div class="testimonial-author">Abraham S. — Burkina Faso</div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“Groupe privé ETG et mises à jour régulières, un must-have.”</div>
-              <div class="testimonial-author">Seydou B. — Mali</div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“L'EA détecte des zones que je ne voyais pas. Gain de temps énorme et entrées plus propres.”</div>
-              <div class="testimonial-author">Koffi M. — Côte d'Ivoire</div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“Plus de calculs manuels risqués. Le calculateur de position intégré m'a sauvé plusieurs trades.”</div>
-              <div class="testimonial-author">Aïcha L. — Bénin</div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“Installation rapide, support WhatsApp réactif. Indispensable sur Deriv.”</div>
-              <div class="testimonial-author">Moussa D. — Sénégal</div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“Bouton Entry Now, exécution fiable. Je n'hésite plus, SL/TP préconfiguré.”</div>
-              <div class="testimonial-author">Adjoa K. — Togo</div>
-            </div>
-            </div>
-<div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“L'outil Etg Advanced est un outil très important et très utile dans l'exécution rapide des trades Et ce que moi j'apprécie le plus , ce sont  les différentes fonctions qui nous permettent  de placer rapidement des ordres et à cela s'ajoute le fait que ça te trace automatiquement les zones de support et de résistance facilitant complètement notre trading”</div>
-              <div class="testimonial-author">Carlos T. - Bénin</div>
-            </div>
-            </div>
-            <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“Etg Advanced PA est un système qui te fait gagner de temps dans ton analyse.Tu repères facilement la tendance et les zones sont déjà tracées.”</div>
-              <div class="testimonial-author">Gérard T. - Bénin</div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“Après utilisation de l'indicateur ETG ADVANCED, je peux dire que c’est un outil pertinent, notamment pour affiner l’analyse et repérer certaines zones intéressantes sur le marché. J’ai eu de bons retours en l’intégrant dans ma manière de trader. Ça m'aide beaucoup et ça facilite la tâche dans l'identification plus rapide des zones d'intérêt sur le marché”</div>
-              <div class="testimonial-author">Salomon A. Bénin</div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“En gros je me suis pas trompé sur l’utilité de ton outil sur mon trading. Déjà la compréhension que j’ai , ça m’aurait pris beaucoup plus de temps pour comprendre mais heureusement que j’ai pu profiter de ton expérience déjà vécu à travers l’outil. Merci et pleins succès à chacun de nous.”</div>
-              <div class="testimonial-author">Adama Moné - Burkina-Faso</div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“L’indicateur travail bien. Je valide . C’est un bon outil. J’ai pris des trades avec ça sur le v75s et aussi le v10. C’etait cool”</div>
-              <div class="testimonial-author">Festus S. Bénin</div>
-            </div>
-            </div>
-            <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="testimonial-stars">★★★★★</div>
-              <div class="testimonial-quote">“Depuis Que j'ai pris l'outil ces des petits déposer de 17 voir 20 dollars mais ces des retraites enchaîné de 200 USD et plus je suis très reconnaissant. C'est un travail formidable.”</div>
-              <div class="testimonial-author">Giroux ATTA - Côté d’ivoire</div>
-            </div>
-          </div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'algo détecte les tendances avec justesse. Moins d'erreurs émotionnelles."</div><div class="testimonial-author">Abraham S. — Burkina Faso</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Groupe privé ETG et mises à jour régulières, un must-have."</div><div class="testimonial-author">Seydou B. — Mali</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'EA détecte des zones que je ne voyais pas. Gain de temps énorme et entrées plus propres."</div><div class="testimonial-author">Koffi M. — Côte d'Ivoire</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Plus de calculs manuels risqués. Le calculateur de position intégré m'a sauvé plusieurs trades."</div><div class="testimonial-author">Aïcha L. — Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Installation rapide, support WhatsApp réactif. Indispensable sur Deriv."</div><div class="testimonial-author">Moussa D. — Sénégal</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Bouton Entry Now, exécution fiable. Je n'hésite plus, SL/TP préconfiguré."</div><div class="testimonial-author">Adjoa K. — Togo</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'outil Etg Advanced est un outil très important et très utile dans l'exécution rapide des trades"</div><div class="testimonial-author">Carlos T. - Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Etg Advanced PA est un système qui te fait gagner de temps dans ton analyse."</div><div class="testimonial-author">Gérard T. - Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Après utilisation de l'indicateur ETG ADVANCED, je peux dire que c'est un outil pertinent."</div><div class="testimonial-author">Salomon A. Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"En gros je me suis pas trompé sur l'utilité de ton outil sur mon trading."</div><div class="testimonial-author">Adama Moné - Burkina-Faso</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'indicateur travail bien. Je valide. C'est un bon outil."</div><div class="testimonial-author">Festus S. Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Depuis que j'ai pris l'outil c'est des petites dépôts mais des retraits enchainés de 200 USD et plus."</div><div class="testimonial-author">Giroux ATTA - Côte d'Ivoire</div></div></div>
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-prev"></div>
@@ -757,7 +457,6 @@
   <section>
     <div class="container display-flex flex-column align-center" style="width: 100%; text-align: center;">
       <h2 class="section-title">L'OUTIL TOUT-EN-UN UTILISÉ CHEZ ELITE TRADERS GROUP.</h2>
-      <!-- <div class="card display-flex flex-column align-center" style="width: 100%;"> -->
         <div class="img-placeholder" style="margin: 20px auto; background: none; border: none; max-width: 50em; width: 100%;">
           <img src="./assets/img/banner.jpeg" alt="Banner ETG" style="width: 100%; height: auto; border-radius: 18px; display: block;">
         </div>
@@ -774,40 +473,28 @@
       <h2 class="section-title">CE QUE FAIT L'EA POUR TOI</h2>
       <div class="e-fgrid">
         <div class="e-fc">
-          <div class="e-fc-head">
-            <i class="fa-solid fa-location-dot" style="color: #000;"></i>
-            <div class="e-fc-title">Détection auto zones S/R</div>
-          </div>
+          <div class="e-fc-head"><i class="fa-solid fa-location-dot" style="color: #000;"></i><div class="e-fc-title">Détection auto zones S/R</div></div>
           <div class="e-fc-body">
             <div class="e-fc-photo"><img src="./assets/img/card1.jpeg" alt="Zones S/R"></div>
             <p class="e-fc-desc">Algorithme analyse la structure du marché selon la Price Action pure. Résistances en rouge, supports en vert — automatiquement.</p>
           </div>
         </div>
         <div class="e-fc">
-          <div class="e-fc-head">
-            <i class="fas fa-chart-line" style="color: #000;"></i>
-            <div class="e-fc-title">Système Elite Trends intégré</div>
-          </div>
+          <div class="e-fc-head"><i class="fas fa-chart-line" style="color: #000;"></i><div class="e-fc-title">Système Elite Trends intégré</div></div>
           <div class="e-fc-body">
             <div class="e-fc-photo"><img src="./assets/img/card2.jpeg" alt="Elite Trends"></div>
             <p class="e-fc-desc">Analyse la structure du marché en permanence. Identifie la tendance dominante pour filtrer tes trades.</p>
           </div>
         </div>
         <div class="e-fc">
-          <div class="e-fc-head">
-            <i class="fas fa-calculator" style="color: #000;"></i>
-            <div class="e-fc-title">Calculateur de position</div>
-          </div>
+          <div class="e-fc-head"><i class="fas fa-calculator" style="color: #000;"></i><div class="e-fc-title">Calculateur de position</div></div>
           <div class="e-fc-body">
             <div class="e-fc-photo"><img src="./assets/img/card3.jpeg" alt="Calculateur"></div>
             <p class="e-fc-desc">Calcule automatiquement la taille de position selon ton risque %. SL/TP configurables directement sur le graphique.</p>
           </div>
         </div>
         <div class="e-fc">
-          <div class="e-fc-head">
-            <i class="fas fa-bolt" style="color: #000;"></i>
-            <div class="e-fc-title">Bouton Entry Now</div>
-          </div>
+          <div class="e-fc-head"><i class="fas fa-bolt" style="color: #000;"></i><div class="e-fc-title">Bouton Entry Now</div></div>
           <div class="e-fc-body">
             <div class="e-fc-photo"><img src="./assets/img/card4.jpeg" alt="Entry Now" style="object-fit: cover;object-position: bottom;"></div>
             <p class="e-fc-desc">Un seul clic pour exécuter l'ordre au bon prix avec SL/TP prédéfinis. Zéro délai, zéro erreur d'exécution.</p>
@@ -820,7 +507,7 @@
   <!-- Offre & investissement -->
   <section>
     <div class="container">
-      <div class="card" style="text-align: center; max-width: 780px; margin: 0 auto; background: linear-gradient(145deg, #0f131c74, #080b1259); border: 1px solid #E5A12E30;">
+      <div class="card" style="text-align: center; max-width: 780px; margin: 0 auto; background: linear-gradient(145deg, rgba(15,23,36,0.9), rgba(8,11,18,0.9)); border: 1px solid rgba(229,161,46,0.4);">
         <span class="badge" style="background: #E5A12E; color:#07090E;">Offre éclair</span>
         <h2 style="font-size: 2rem; margin: 20px 0 8px;">Ton investissement aujourd'hui</h2>
         <p>50 LICENCES DISPONIBLES À</p>
@@ -840,12 +527,12 @@
   </section>
 
   <!-- C'est fait pour toi ? -->
-  <section style="background: #090c1255;">
+  <section style="background: rgba(9, 12, 18, 0.6);">
     <div class="container">
       <h2 class="section-title">C'EST FAIT POUR TOI ?</h2>
       <div class="grid-2">
         <div class="card">
-          <h2><i class="fas fa-thumbs-up" style="color:#E5A12E;"></i> C'est pour toi si...</h3>
+          <h2><i class="fas fa-thumbs-up" style="color:#4ADE80;"></i> C'est pour toi si...</h2>
           <ul class="checklist" style="margin-top: 20px;">
             <li><i class="fas fa-check-circle"></i> Tu veux structurer ta stratégie de trading</li>
             <li><i class="fas fa-check-circle"></i> Tu cherches un outil pro clé en main</li>
@@ -855,7 +542,7 @@
           </ul>
         </div>
         <div class="card">
-          <h2><i class="fas fa-thumbs-down" style="color:#E34F4F;"></i> Pas pour toi si...</h2>
+          <h2><i class="fas fa-thumbs-down" style="color:#F87171;"></i> Pas pour toi si...</h2>
           <ul class="crosslist text-align-start" style="margin-top: 20px;">
             <li><i class="fas fa-times-circle"></i> Tu cherches un robot qui trade à ta place</li>
             <li><i class="fas fa-times-circle"></i> Tu veux des garanties de profits</li>
@@ -873,30 +560,12 @@
     <div class="container">
       <h2 class="section-title">QUESTIONS FRÉQUENTES</h2>
       <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-question"><span>❓ Qu'est-ce que l'ETG Advanced PA Secured exactement ?</span> <i class="fas fa-chevron-down"></i></div>
-          <div class="faq-answer">Un Expert Advisor MT5 développé par Elite Traders Group qui automatise la détection des zones S/R, le calcul du risque et l'exécution des ordres selon la Price Action.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question"><span>❓ Est-ce un robot automatique ?</span> <i class="fas fa-chevron-down"></i></div>
-          <div class="faq-answer">Non. L'EA t'assiste : il détecte les zones, calcule le risque et prépare l'ordre. C'est toi qui décides d'appuyer sur Entry Now. Tu gardes le contrôle total.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question"><span>❓ Sur quels marchés est-il compatible ?</span> <i class="fas fa-chevron-down"></i></div>
-          <div class="faq-answer">Forex, Indices Synthétiques Deriv (Boom, Crash, Step Index), et tous les brokers compatibles MT5.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question"><span>❓ Puis-je utiliser la licence sur plusieurs PC ?</span> <i class="fas fa-chevron-down"></i></div>
-          <div class="faq-answer">La licence est sécurisée pour 1 PC. Chaque achat = 1 licence PC. Support WhatsApp pour changement.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question"><span>❓ Y a-t-il un remboursement possible ?</span> <i class="fas fa-chevron-down"></i></div>
-          <div class="faq-answer">Vente définitive. Politique clairement affichée avant l'achat. Le produit est numérique avec accès immédiat.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-question"><span>❓ Comment se passe l'installation ?</span> <i class="fas fa-chevron-down"></i></div>
-          <div class="faq-answer">Accès immédiat via WhatsApp avec guide complet et support direct. Notre équipe t'accompagne étape par étape.</div>
-        </div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Qu'est-ce que l'ETG Advanced PA Secured exactement ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Un Expert Advisor MT5 développé par Elite Traders Group qui automatise la détection des zones S/R, le calcul du risque et l'exécution des ordres selon la Price Action.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Est-ce un robot automatique ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Non. L'EA t'assiste : il détecte les zones, calcule le risque et prépare l'ordre. C'est toi qui décides d'appuyer sur Entry Now. Tu gardes le contrôle total.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Sur quels marchés est-il compatible ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Forex, Indices Synthétiques Deriv (Boom, Crash, Step Index), et tous les brokers compatibles MT5.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Puis-je utiliser la licence sur plusieurs PC ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">La licence est sécurisée pour 1 PC. Chaque achat = 1 licence PC. Support WhatsApp pour changement.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Y a-t-il un remboursement possible ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Vente définitive. Politique clairement affichée avant l'achat. Le produit est numérique avec accès immédiat.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Comment se passe l'installation ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Accès immédiat via WhatsApp avec guide complet et support direct. Notre équipe t'accompagne étape par étape.</div></div>
       </div>
     </div>
   </section>
@@ -904,8 +573,8 @@
   <!-- Dernier CTA -->
   <section style="padding-top: 20px; padding-bottom: 70px;">
     <div class="container">
-      <div class="card" style="text-align: center; background: #0a0e1762; border: 2px solid #E5A12E30;">
-        <h2 style="font-size: 2rem;text-transform: uppercase;">Rejoins les <span class="gold"style="color:#E5A12E;">50 premiers traders </span><br>à utiliser un <div class="gold" style="color: #E5A12E;">système complet</div></h2>
+      <div class="card" style="text-align: center; background: rgba(10,14,23,0.9); border: 2px solid rgba(229,161,46,0.4);">
+        <h2 style="font-size: 2rem;text-transform: uppercase;">Rejoins les <span style="color:#E5A12E;">50 premiers traders </span><br>à utiliser un <span style="color: #E5A12E;">système complet</span></h2>
         <p style="margin: 16px 0;">Paiement unique · Aucun abonnement · Accès immédiat</p>
         <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary" id="ctaFooter"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
         <p style="margin-top: 20px; font-size: 0.7rem;"><i class="fas fa-lock"></i> 50 licences disponibles · Paiement unique</p>
@@ -922,6 +591,7 @@
 </footer>
 
 <script>
+  // ========== LIVE FEED ==========
   const activities = [
     "Koffi M. — Côte d'Ivoire vient d'obtenir sa licence ETG Advanced PA Secured ✓",
     "Moussa D. — Sénégal a commencé à trader avec l'EA ce matin ✓",
@@ -932,60 +602,230 @@
     "Eric A. — Cameroun exécute son premier trade avec Entry Now ✓",
     "Fatou N. — Sénégal \"Le calculateur de risque m'a évité un gros DD\" ✓"
   ];
-
   function initTicker() {
     const feedDiv = document.getElementById('feedContainer');
     if (!feedDiv) return;
     const allItems = [...activities, ...activities];
-    feedDiv.innerHTML = allItems.map(msg => `
-      <div class="feed-item">
-        <i class="fas fa-circle feed-icon"></i>
-        <span>${msg}</span>
-      </div>
-    `).join('');
+    feedDiv.innerHTML = allItems.map(msg => `<div class="feed-item"><i class="fas fa-circle feed-icon"></i><span>${msg}</span></div>`).join('');
   }
-
   initTicker();
 
-  const testimonialsSwiper = new Swiper('.testimonials-slider', {
-    slidesPerView: 1,
-    spaceBetween: 20,
-    centeredSlides: true,
-    loop: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 3,
-        spaceBetween: 20,
-        centeredSlides: true,
-      }
-    },
-    autoplay: {
-      delay: 4000,
-      disableOnInteraction: false,
-    },
-    speed: 600,
+  // ========== SWIPER ==========
+  new Swiper('.testimonials-slider', {
+    slidesPerView: 1, spaceBetween: 20, centeredSlides: true, loop: true,
+    pagination: { el: '.swiper-pagination', clickable: true },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+    breakpoints: { 768: { slidesPerView: 3, spaceBetween: 20, centeredSlides: true } },
+    autoplay: { delay: 4000, disableOnInteraction: false }, speed: 600
   });
 
-  const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
-    const qDiv = item.querySelector('.faq-question');
-    qDiv.addEventListener('click', () => {
+  // ========== FAQ ==========
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question').addEventListener('click', () => {
       const isActive = item.classList.contains('active');
-      faqItems.forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
       if (!isActive) item.classList.add('active');
     });
   });
-  if(faqItems.length) faqItems[0].classList.add('active');
-  
+  const firstFaq = document.querySelector('.faq-item');
+  if(firstFaq) firstFaq.classList.add('active');
 
+  // ========== VRAI GRAPHIQUE DE TRADING (COMME MT5/TRADINGVIEW) ==========
+  const canvas = document.getElementById('trading-bg');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    
+    const CANDLE_W = 8;
+    const GAP = 3;
+    const STEP = CANDLE_W + GAP;
+    
+    let candles = [];
+    let offset = 0;
+    let speed = 0.4;
+    
+    // Prix simulé réaliste
+    let price = 1.0845;
+    let trend = 0.00012;
+    let volatility = 0.00038;
+    let lastTrendFlip = 0;
+    
+    // Zones de support / résistance
+    let zones = [];
+    
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      candles = [];
+      zones = [];
+      
+      // Générer une série de bougies réaliste
+      let p = 1.0845;
+      let t = 0.0001;
+      for (let i = 0; i < Math.ceil(w / STEP) + 80; i++) {
+        let open = p;
+        let change = (Math.random() - 0.48) * volatility + t;
+        let close = open + change;
+        let upperWick = Math.random() * volatility * 0.7;
+        let lowerWick = Math.random() * volatility * 0.7;
+        let high = Math.max(open, close) + upperWick;
+        let low = Math.min(open, close) - lowerWick;
+        p = close;
+        
+        if (Math.random() < 0.03) t = -t + (Math.random() - 0.5) * 0.00015;
+        
+        candles.push({ open, high, low, close });
+      }
+      
+      // Créer des zones S/R réalistes
+      let allPrices = candles.flatMap(c => [c.high, c.low]);
+      let minP = Math.min(...allPrices);
+      let maxP = Math.max(...allPrices);
+      let range = maxP - minP;
+      
+      // 3-4 zones de support (bleu) et résistance (rouge)
+      for (let i = 0; i < 3; i++) {
+        let zMin = minP + Math.random() * range * 0.3;
+        let zMax = zMin + range * 0.04;
+        zones.push({ type: 'support', yMin: zMin, yMax: zMax, color: 'rgba(59, 130, 246, 0.25)' });
+      }
+      for (let i = 0; i < 2; i++) {
+        let zMax2 = maxP - Math.random() * range * 0.25;
+        let zMin2 = zMax2 - range * 0.05;
+        zones.push({ type: 'resistance', yMin: zMin2, yMax: zMax2, color: 'rgba(239, 68, 68, 0.25)' });
+      }
+    }
+    
+    window.addEventListener('resize', resize);
+    resize();
+    
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      
+      let visibleCount = Math.ceil((w + offset) / STEP);
+      let visible = candles.slice(-visibleCount);
+      
+      if (visible.length < 2) { requestAnimationFrame(draw); return; }
+      
+      let allPrices = visible.flatMap(c => [c.high, c.low]);
+      let minP = Math.min(...allPrices);
+      let maxP = Math.max(...allPrices);
+      let range = maxP - minP;
+      if (range === 0) range = 0.001;
+      
+      let pad = range * 0.08;
+      minP -= pad; maxP += pad;
+      range = maxP - minP;
+      
+      function toY(p) {
+        return h - ((p - minP) / range) * (h * 0.92) - h * 0.04;
+      }
+      
+      // Grille de prix subtile (comme MT5)
+      ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      for (let i = 0; i <= 8; i++) {
+        let y = toY(minP + (range / 8) * i);
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      }
+      ctx.setLineDash([]);
+      
+      // Zones de support / résistance (rectangles horizontaux)
+      zones.forEach(z => {
+        let y1 = toY(z.yMax);
+        let y2 = toY(z.yMin);
+        let zoneH = Math.max(y2 - y1, 8);
+        ctx.fillStyle = z.color;
+        ctx.fillRect(0, y1, w, zoneH);
+        
+        // Ligne de bordure
+        ctx.strokeStyle = z.color.replace('0.25', '0.5');
+        ctx.lineWidth = 1;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath(); ctx.moveTo(0, y1); ctx.lineTo(w, y1); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(0, y2); ctx.lineTo(w, y2); ctx.stroke();
+        ctx.setLineDash([]);
+      });
+      
+      // Bougies japonaises
+      let startX = w - offset;
+      for (let i = visible.length - 1; i >= 0; i--) {
+        let c = visible[i];
+        let x = startX - i * STEP;
+        if (x < -STEP || x > w + STEP) continue;
+        
+        let isBullish = c.close >= c.open;
+        
+        // Mèche
+        ctx.strokeStyle = isBullish ? 'rgba(34,197,94,0.6)' : 'rgba(239,68,68,0.6)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(x, toY(c.high));
+        ctx.lineTo(x, toY(c.low));
+        ctx.stroke();
+        
+        // Corps
+        let bodyTop = Math.min(toY(c.open), toY(c.close));
+        let bodyH = Math.max(Math.abs(toY(c.close) - toY(c.open)), 1);
+        
+        if (isBullish) {
+          // Bougie haussière : corps blanc/clair avec contour vert
+          ctx.fillStyle = 'rgba(22, 230, 100, 0.7)';
+          ctx.strokeStyle = 'rgba(34,197,94,0.8)';
+          ctx.lineWidth = 1;
+          ctx.fillRect(x - CANDLE_W/2, bodyTop, CANDLE_W, bodyH);
+          ctx.strokeRect(x - CANDLE_W/2, bodyTop, CANDLE_W, bodyH);
+        } else {
+          // Bougie baissière : corps rouge plein
+          ctx.fillStyle = 'rgba(220, 38, 38, 0.7)';
+          ctx.strokeStyle = 'rgba(239,68,68,0.8)';
+          ctx.lineWidth = 1;
+          ctx.fillRect(x - CANDLE_W/2, bodyTop, CANDLE_W, bodyH);
+          ctx.strokeRect(x - CANDLE_W/2, bodyTop, CANDLE_W, bodyH);
+        }
+      }
+      
+      // Défilement lent
+      offset += speed;
+      if (offset >= STEP) {
+        offset = 0;
+        
+        // Générer nouvelle bougie
+        let lastCandle = candles[candles.length - 1];
+        let open = lastCandle.close;
+        let change = (Math.random() - 0.47) * volatility + trend;
+        let close = open + change;
+        let upperWick = Math.random() * volatility * 0.5;
+        let lowerWick = Math.random() * volatility * 0.5;
+        let high = Math.max(open, close) + upperWick;
+        let low = Math.min(open, close) - lowerWick;
+        
+        candles.push({ open, high, low, close });
+        
+        // Flip de tendance occasionnel
+        if (Math.random() < 0.02) {
+          trend = -trend + (Math.random() - 0.5) * 0.00008;
+        }
+        
+        // Garder taille raisonnable
+        if (candles.length > visibleCount + 60) {
+          candles.splice(0, candles.length - visibleCount - 60);
+        }
+      }
+      
+      requestAnimationFrame(draw);
+    }
+    
+    draw();
+  }
+
+  // ========== CTA HOVER ==========
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    btn.addEventListener('mouseenter', () => btn.style.animation = 'cta-shake 0.4s ease, cta-glow 0.3s ease-in-out infinite');
+    btn.addEventListener('mouseleave', () => btn.style.animation = 'cta-jump 2s ease-in-out infinite, cta-glow 1.5s ease-in-out infinite');
+  });
 </script>
 </body>
 </html>
+
