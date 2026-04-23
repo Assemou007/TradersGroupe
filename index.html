@@ -21,12 +21,32 @@
       overflow-x: hidden;
     }
 
+    /* Vidéo en arrière-plan */
+    #bg-video {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      object-fit: cover;
+    }
+
     body::after {
       content: '';
       position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse at center, rgba(11,19,34,0.82) 0%, rgba(11,19,34,0.97) 100%);
-      z-index: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(11, 19, 34, 0.75) 0%,
+        rgba(11, 19, 34, 0.60) 30%,
+        rgba(11, 19, 34, 0.65) 70%,
+        rgba(11, 19, 34, 0.85) 100%
+      );
+      z-index: 1;
       pointer-events: none;
     }
 
@@ -59,27 +79,6 @@
       box-shadow: 0 4px 20px rgba(229, 161, 46, 0.3);
     }
 
-    @keyframes cta-jump {
-      0%, 100% { transform: scale(1) translateY(0); box-shadow: 0 12px 25px -10px rgba(229, 161, 46, 0.6); }
-      15% { transform: scale(1.05) translateY(-6px); }
-      30% { transform: scale(1) translateY(0); }
-      45% { transform: scale(1.03) translateY(-3px); }
-      60% { transform: scale(1) translateY(0); }
-      75% { transform: scale(1.02) translateY(-2px); }
-      90% { transform: scale(1) translateY(0); }
-    }
-
-    @keyframes cta-shake {
-      0%, 100% { transform: translateX(0) scale(1); }
-      10%, 30%, 50%, 70%, 90% { transform: translateX(-3px) scale(1.02); }
-      20%, 40%, 60%, 80% { transform: translateX(3px) scale(1.02); }
-    }
-
-    @keyframes cta-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(229, 161, 46, 0.6), 0 0 40px rgba(229, 161, 46, 0.3), 0 0 60px rgba(229, 161, 46, 0.1); }
-      50% { box-shadow: 0 0 30px rgba(229, 161, 46, 0.9), 0 0 60px rgba(229, 161, 46, 0.5), 0 0 90px rgba(229, 161, 46, 0.2); }
-    }
-
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -92,54 +91,23 @@
       padding: 14px 34px;
       border-radius: 60px;
       text-decoration: none;
-      transition: all 0.15s ease;
+      transition: all 0.25s ease;
       border: none;
       cursor: pointer;
+      box-shadow: 0 12px 20px -12px rgba(198, 122, 15, 0.5);
       font-family: 'League Spartan', sans-serif;
       position: relative;
       z-index: 30;
-      animation: cta-jump 2s ease-in-out infinite, cta-glow 1.5s ease-in-out infinite;
     }
 
     .btn-primary:hover {
-      animation: cta-shake 0.4s ease, cta-glow 0.3s ease-in-out infinite;
-      transform: scale(1.08) !important;
-      background: linear-gradient(105deg, #F5B847 0%, #D88B1A 100%);
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 64px;
-      background: radial-gradient(circle, rgba(255,215,100,0.5) 0%, transparent 60%);
-      animation: pulse-ring 1.5s ease-out infinite;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    @keyframes pulse-ring {
-      0% { transform: scale(0.8); opacity: 1; }
-      100% { transform: scale(2); opacity: 0; }
-    }
-
-    .btn-primary::after {
-      content: '🔥';
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      font-size: 1.2rem;
-      animation: bounce-emoji 1s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    @keyframes bounce-emoji {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-6px) scale(1.2); }
+      transform: translateY(-3px);
+      background: linear-gradient(105deg, #F0B341 0%, #D88B1A 100%);
+      box-shadow: 0 20px 28px -12px rgba(229, 161, 46, 0.6);
     }
 
     .card {
-      background: rgba(15, 23, 36, 0.95);
+      background: rgba(15, 23, 36, 0.92);
       border-radius: 28px;
       padding: 28px 26px;
       text-align: start;
@@ -178,20 +146,16 @@
       gap: 2rem;
       width: fit-content;
     }
+
     .live-ticker:hover { animation-play-state: paused; }
 
     .feed-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.85rem;
-      padding: 8px 24px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      background: rgba(229, 161, 46, 0.15);
-      border-radius: 40px;
-      border: 1px solid rgba(229, 161, 46, 0.3);
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 0.85rem; padding: 8px 24px; white-space: nowrap;
+      flex-shrink: 0; background: rgba(229, 161, 46, 0.15);
+      border-radius: 40px; border: 1px solid rgba(229, 161, 46, 0.3);
     }
+
     .feed-icon { color: #E5A12E; font-size: 0.7rem; animation: pulse-dot 1.5s ease-in-out infinite; }
     @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.8); } }
     @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -207,8 +171,9 @@
     }
 
     .testimonials-slider { width: 100%; padding: 20px 0 60px; position: relative; z-index: 10; }
+
     .testimonial-card {
-      background: rgba(15, 23, 36, 0.95);
+      background: rgba(15, 23, 36, 0.92);
       border-radius: 24px;
       padding: 32px 24px;
       text-align: center;
@@ -218,12 +183,14 @@
       height: auto;
       backdrop-filter: blur(10px);
     }
+
     .swiper-slide-active .testimonial-card {
       transform: scale(1.05);
       border: 2px solid #E5A12E;
       box-shadow: 0 0 30px rgba(229, 161, 46, 0.4);
       background: rgba(22, 30, 44, 0.98);
     }
+
     .testimonial-stars { color: #E5A12E; font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 20px; }
     .testimonial-quote { font-size: 1rem; line-height: 1.6; color: #EFF3F8; margin-bottom: 20px; font-style: italic; }
     .testimonial-author { font-weight: 700; color: #E5A12E; font-size: 0.95rem; }
@@ -243,10 +210,11 @@
       letter-spacing: -1px;
       text-shadow: 0 0 20px rgba(229, 161, 46, 0.5);
     }
+
     .old-price { text-decoration: line-through; color: #8E9AAF; font-size: 1.2rem; }
 
     .faq-question {
-      background: rgba(15, 23, 36, 0.95);
+      background: rgba(15, 23, 36, 0.92);
       padding: 18px 24px;
       border-radius: 20px 20px 6px 6px;
       cursor: pointer;
@@ -258,13 +226,16 @@
       border: 1px solid #2a3a5a;
       backdrop-filter: blur(10px);
     }
+
     .faq-question:hover { background: rgba(23, 30, 43, 0.98); border-color: #E5A12E; }
+
     .faq-answer {
       max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
       background: rgba(9, 12, 18, 0.95); border-radius: 0 0 20px 20px;
       padding: 0 24px; margin-top: -7px; color: #C9D1E6; margin-bottom: 1em;
       backdrop-filter: blur(10px);
     }
+
     .faq-item.active .faq-answer { max-height: 280px; padding: 18px 24px 24px 24px; }
     .faq-item.active .faq-question i { transform: rotate(180deg); }
 
@@ -289,37 +260,38 @@
     .e-fc-desc { font-size: 13px; color: #333; line-height: 1.6; font-family: 'Montserrat', sans-serif; text-align: left; }
 
     section { padding: 60px 0; position: relative; }
+
     .section-title {
-      font-size: 4rem; margin-bottom: 48px; text-align: center; font-weight: 800;
-      color: #E5A12E; letter-spacing: -0.5px; text-transform: uppercase;
+      font-size: 4rem;
+      margin-bottom: 48px;
+      text-align: center;
+      font-weight: 800;
+      color: #E5A12E;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
       text-shadow: 0 0 30px rgba(229, 161, 46, 0.4);
     }
+
     .text-gold {
       background: linear-gradient(135deg, #FFD76E, #E5A12E, #FFC44D);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       animation: text-shine 3s ease-in-out infinite;
     }
+
     @keyframes text-shine { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.3); } }
 
     footer { background: #04070C; padding: 40px 0; text-align: center; font-size: 0.7rem; border-top: 1px solid #1F2838; position: relative; z-index: 10; }
     .display-flex { display: flex; } .flex-column { flex-direction: column; } .align-center { align-items: center; }
 
-    /* ========== GRAPHIQUE TRADING RÉALISTE ========== */
-    #trading-bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0.2;
-    }
-
-    /* ========== RESPONSIVE ========== */
+    /* RESPONSIVE */
     @media (max-width: 1024px) { .e-fgrid { grid-template-columns: repeat(2, 1fr); gap: 25px; } }
+
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
       .grid-2 { grid-template-columns: 1fr; gap: 30px; }
-      .btn-primary { font-size: 1rem; padding: 12px 22px; width: 100%; text-align: center; animation: cta-jump 2.5s ease-in-out infinite, cta-glow 2s ease-in-out infinite; }
+      .btn-primary { font-size: 1rem; padding: 12px 22px; width: 100%; text-align: center; }
       .price-big { font-size: 3rem; }
       .live-ticker { animation-duration: 35s; }
       .feed-item { font-size: 0.7rem; padding: 5px 16px; }
@@ -347,6 +319,7 @@
       .faq-question { text-align: left; }
       .live-feed { text-align: left; }
     }
+
     @media (max-width: 480px) {
       .top-banner { font-size: 0.7rem; padding: 8px 12px; }
       .section-title { font-size: 2rem; }
@@ -360,17 +333,17 @@
       .btn-primary { font-size: 0.9rem; padding: 12px 18px; }
       .e-fc { max-width: 100%; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .btn-primary, .live-ticker, .text-gold { animation: none !important; }
-      .btn-primary:hover { transform: scale(1.05) !important; }
-      .btn-primary::after { display: none; }
-    }
   </style>
   <link rel="shortcut icon" href="./assets/img/favi.png" type="image/x-icon">
 </head>
 <body>
 
-<canvas id="trading-bg"></canvas>
+<!-- VIDÉO DE TRADING EN ARRIÈRE-PLAN -->
+<video id="bg-video" autoplay muted loop playsinline preload="auto">
+  <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
+  <!-- Fallback vers une autre vidéo de trading si la première ne charge pas -->
+  <source src="https://videos.pexels.com/video-files/6733713/6733713-uhd_2560_1440_25fps.mp4" type="video/mp4">
+</video>
 
 <div class="top-banner">
   <i class="fas fa-bolt" style="margin-right: 8px;"></i> OFFRE DE LANCEMENT — 50 LICENCES UNIQUEMENT À 19.900 FCFA · APRÈS : 35.000 FCFA
@@ -385,7 +358,7 @@
           <span class="badge hero-badge"><i class="fas fa-chart-line"></i> Expert Advisor / Indicateur MetaTrader 5</span>
           <h1 class="hero-title" style="font-size: 3rem; line-height: 1.2; margin: 24px 0 16px; text-transform: uppercase;">Arrête de trader à<br> <span class="text-gold">L'INSTINCT.</span><br> Voici <div class="text-gold">l'outil que j'utilise</div> moi-même chaque jour</h1>
           <p class="hero-desc" style="font-size: 1.2rem; color: #B9C3D9; margin-bottom: 28px; text-transform: uppercase;">ETG Advanced PA Secured détecte tes zones, calcule ton risque et exécute tes ordres — pendant que toi tu prends la décision.</p>
-          <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary hero-cta" id="ctaHero"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
+          <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary hero-cta"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
           <div class="hero-info" style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 18px; font-size: 0.85rem; font-weight: 500;">
             <span><i class="fas fa-credit-card" style="color:#E5A12E;"></i> Paiement unique</span>
             <span><i class="fas fa-ban" style="color:#E5A12E;"></i> Aucun abonnement</span>
@@ -397,7 +370,6 @@
           <img src="./assets/img/banner.jpeg" alt="" style="width: 100%; border-radius: 18px; display: block;">
         </div>
       </div>
-
       <div class="live-feed">
         <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
           <i class="fas fa-circle" style="font-size: 10px; color: #E5A12E;"></i>
@@ -410,23 +382,23 @@
   </section>
 
   <!-- Témoignages -->
-  <section style="background: rgba(1, 14, 39, 0.6);">
+  <section style="background: rgba(1, 14, 39, 0.5);">
     <div class="container">
       <h2 class="section-title">CE QUE DISENT CEUX QUI L'UTILISENT DÉJÀ</h2>
       <div class="testimonials-slider swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'algo détecte les tendances avec justesse. Moins d'erreurs émotionnelles."</div><div class="testimonial-author">Abraham S. — Burkina Faso</div></div></div>
           <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Groupe privé ETG et mises à jour régulières, un must-have."</div><div class="testimonial-author">Seydou B. — Mali</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'EA détecte des zones que je ne voyais pas. Gain de temps énorme et entrées plus propres."</div><div class="testimonial-author">Koffi M. — Côte d'Ivoire</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Plus de calculs manuels risqués. Le calculateur de position intégré m'a sauvé plusieurs trades."</div><div class="testimonial-author">Aïcha L. — Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'EA détecte des zones que je ne voyais pas. Gain de temps énorme."</div><div class="testimonial-author">Koffi M. — Côte d'Ivoire</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Plus de calculs manuels risqués. Le calculateur intégré m'a sauvé."</div><div class="testimonial-author">Aïcha L. — Bénin</div></div></div>
           <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Installation rapide, support WhatsApp réactif. Indispensable sur Deriv."</div><div class="testimonial-author">Moussa D. — Sénégal</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Bouton Entry Now, exécution fiable. Je n'hésite plus, SL/TP préconfiguré."</div><div class="testimonial-author">Adjoa K. — Togo</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'outil Etg Advanced est un outil très important et très utile dans l'exécution rapide des trades"</div><div class="testimonial-author">Carlos T. - Bénin</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Etg Advanced PA est un système qui te fait gagner de temps dans ton analyse."</div><div class="testimonial-author">Gérard T. - Bénin</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Après utilisation de l'indicateur ETG ADVANCED, je peux dire que c'est un outil pertinent."</div><div class="testimonial-author">Salomon A. Bénin</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"En gros je me suis pas trompé sur l'utilité de ton outil sur mon trading."</div><div class="testimonial-author">Adama Moné - Burkina-Faso</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'indicateur travail bien. Je valide. C'est un bon outil."</div><div class="testimonial-author">Festus S. Bénin</div></div></div>
-          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Depuis que j'ai pris l'outil c'est des petites dépôts mais des retraits enchainés de 200 USD et plus."</div><div class="testimonial-author">Giroux ATTA - Côte d'Ivoire</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Bouton Entry Now, exécution fiable. SL/TP préconfiguré."</div><div class="testimonial-author">Adjoa K. — Togo</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'outil trace automatiquement les zones de support et résistance."</div><div class="testimonial-author">Carlos T. - Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Système qui te fait gagner de temps dans ton analyse."</div><div class="testimonial-author">Gérard T. - Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Outil pertinent pour affiner l'analyse et repérer les zones."</div><div class="testimonial-author">Salomon A. Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Je me suis pas trompé sur l'utilité de ton outil sur mon trading."</div><div class="testimonial-author">Adama Moné - Burkina-Faso</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"L'indicateur travaille bien. Bon outil pour V75s et V10."</div><div class="testimonial-author">Festus S. Bénin</div></div></div>
+          <div class="swiper-slide"><div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><div class="testimonial-quote">"Petits dépôts mais retraits enchainés de 200 USD et plus."</div><div class="testimonial-author">Giroux ATTA - Côte d'Ivoire</div></div></div>
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-prev"></div>
@@ -435,7 +407,6 @@
     </div>
   </section>
 
-  <!-- Tu te reconnais dans ça ? -->
   <section>
     <div class="container display-flex flex-column align-center">
       <h2 class="section-title">TU TE RECONNAIS DANS ÇA ?</h2>
@@ -453,21 +424,18 @@
     </div>
   </section>
 
-  <!-- Outil tout-en-un -->
   <section>
     <div class="container display-flex flex-column align-center" style="width: 100%; text-align: center;">
       <h2 class="section-title">L'OUTIL TOUT-EN-UN UTILISÉ CHEZ ELITE TRADERS GROUP.</h2>
-        <div class="img-placeholder" style="margin: 20px auto; background: none; border: none; max-width: 50em; width: 100%;">
-          <img src="./assets/img/banner.jpeg" alt="Banner ETG" style="width: 100%; height: auto; border-radius: 18px; display: block;">
-        </div>
-        <p style="max-width: 600px; margin: 0 auto;">
-          Pendant des années, j'ai cherché l'outil parfait pour trader avec méthode. Je ne l'ai jamais trouvé — alors je l'ai créé. ETG Advanced PA Secured est l'Expert Advisor MetaTrader 5 que j'utilise moi-même, et que mes élèves d'Elite Traders Group utilisent depuis des semaines.
-        </p>
+      <div class="img-placeholder" style="margin: 20px auto; background: none; border: none; max-width: 50em; width: 100%;">
+        <img src="./assets/img/banner.jpeg" alt="Banner ETG" style="width: 100%; height: auto; border-radius: 18px; display: block;">
       </div>
+      <p style="max-width: 600px; margin: 0 auto;">
+        Pendant des années, j'ai cherché l'outil parfait pour trader avec méthode. Je ne l'ai jamais trouvé — alors je l'ai créé. ETG Advanced PA Secured est l'Expert Advisor MetaTrader 5 que j'utilise moi-même.
+      </p>
     </div>
   </section>
 
-  <!-- Ce que fait l'EA pour toi -->
   <section id="etg-feats">
     <div class="container">
       <h2 class="section-title">CE QUE FAIT L'EA POUR TOI</h2>
@@ -476,35 +444,34 @@
           <div class="e-fc-head"><i class="fa-solid fa-location-dot" style="color: #000;"></i><div class="e-fc-title">Détection auto zones S/R</div></div>
           <div class="e-fc-body">
             <div class="e-fc-photo"><img src="./assets/img/card1.jpeg" alt="Zones S/R"></div>
-            <p class="e-fc-desc">Algorithme analyse la structure du marché selon la Price Action pure. Résistances en rouge, supports en vert — automatiquement.</p>
+            <p class="e-fc-desc">Algorithme analyse la structure du marché selon la Price Action pure. Résistances en rouge, supports en vert.</p>
           </div>
         </div>
         <div class="e-fc">
           <div class="e-fc-head"><i class="fas fa-chart-line" style="color: #000;"></i><div class="e-fc-title">Système Elite Trends intégré</div></div>
           <div class="e-fc-body">
             <div class="e-fc-photo"><img src="./assets/img/card2.jpeg" alt="Elite Trends"></div>
-            <p class="e-fc-desc">Analyse la structure du marché en permanence. Identifie la tendance dominante pour filtrer tes trades.</p>
+            <p class="e-fc-desc">Analyse la structure du marché en permanence. Identifie la tendance dominante.</p>
           </div>
         </div>
         <div class="e-fc">
           <div class="e-fc-head"><i class="fas fa-calculator" style="color: #000;"></i><div class="e-fc-title">Calculateur de position</div></div>
           <div class="e-fc-body">
             <div class="e-fc-photo"><img src="./assets/img/card3.jpeg" alt="Calculateur"></div>
-            <p class="e-fc-desc">Calcule automatiquement la taille de position selon ton risque %. SL/TP configurables directement sur le graphique.</p>
+            <p class="e-fc-desc">Calcule automatiquement la taille de position selon ton risque %. SL/TP configurables.</p>
           </div>
         </div>
         <div class="e-fc">
           <div class="e-fc-head"><i class="fas fa-bolt" style="color: #000;"></i><div class="e-fc-title">Bouton Entry Now</div></div>
           <div class="e-fc-body">
             <div class="e-fc-photo"><img src="./assets/img/card4.jpeg" alt="Entry Now" style="object-fit: cover;object-position: bottom;"></div>
-            <p class="e-fc-desc">Un seul clic pour exécuter l'ordre au bon prix avec SL/TP prédéfinis. Zéro délai, zéro erreur d'exécution.</p>
+            <p class="e-fc-desc">Un seul clic pour exécuter l'ordre avec SL/TP prédéfinis. Zéro délai.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Offre & investissement -->
   <section>
     <div class="container">
       <div class="card" style="text-align: center; max-width: 780px; margin: 0 auto; background: linear-gradient(145deg, rgba(15,23,36,0.9), rgba(8,11,18,0.9)); border: 1px solid rgba(229,161,46,0.4);">
@@ -516,18 +483,17 @@
         <p style="margin: 18px 0;"><i class="fas fa-check-circle" style="color:#E5A12E;"></i> Paiement unique — AUCUN ABONNEMENT. JAMAIS</p>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; margin: 24px 0;">
           <span><i class="fas fa-laptop" style="color:#E5A12E;"></i> Licence EA pour 1 PC</span>
-          <span><i class="fas fa-cloud-upload-alt" style="color:#E5A12E;"></i> Toutes les mises à jour incluses</span>
-          <span><i class="fab fa-whatsapp" style="color:#E5A12E;"></i> Support WhatsApp installation</span>
+          <span><i class="fas fa-cloud-upload-alt" style="color:#E5A12E;"></i> Mises à jour incluses</span>
+          <span><i class="fab fa-whatsapp" style="color:#E5A12E;"></i> Support WhatsApp</span>
           <span><i class="fas fa-users" style="color:#E5A12E;"></i> Accès groupe privé ETG</span>
         </div>
-        <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary" id="ctaPrice"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
-        <p style="margin-top: 22px; font-size: 0.75rem;"><i class="fas fa-check-circle"></i> Compatible : Forex · Indices Synthétiques Deriv · Tous brokers MT5 · Paiement sécurisé</p>
+        <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
+        <p style="margin-top: 22px; font-size: 0.75rem;"><i class="fas fa-check-circle"></i> Compatible : Forex · Indices Synthétiques Deriv · Tous brokers MT5</p>
       </div>
     </div>
   </section>
 
-  <!-- C'est fait pour toi ? -->
-  <section style="background: rgba(9, 12, 18, 0.6);">
+  <section style="background: rgba(9, 12, 18, 0.5);">
     <div class="container">
       <h2 class="section-title">C'EST FAIT POUR TOI ?</h2>
       <div class="grid-2">
@@ -543,7 +509,7 @@
         </div>
         <div class="card">
           <h2><i class="fas fa-thumbs-down" style="color:#F87171;"></i> Pas pour toi si...</h2>
-          <ul class="crosslist text-align-start" style="margin-top: 20px;">
+          <ul class="crosslist" style="margin-top: 20px;">
             <li><i class="fas fa-times-circle"></i> Tu cherches un robot qui trade à ta place</li>
             <li><i class="fas fa-times-circle"></i> Tu veux des garanties de profits</li>
             <li><i class="fas fa-times-circle"></i> Tu n'as pas de compte MT5</li>
@@ -555,28 +521,26 @@
     </div>
   </section>
 
-  <!-- FAQ Accordéon -->
   <section>
     <div class="container">
       <h2 class="section-title">QUESTIONS FRÉQUENTES</h2>
       <div class="faq-list">
-        <div class="faq-item"><div class="faq-question"><span>❓ Qu'est-ce que l'ETG Advanced PA Secured exactement ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Un Expert Advisor MT5 développé par Elite Traders Group qui automatise la détection des zones S/R, le calcul du risque et l'exécution des ordres selon la Price Action.</div></div>
-        <div class="faq-item"><div class="faq-question"><span>❓ Est-ce un robot automatique ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Non. L'EA t'assiste : il détecte les zones, calcule le risque et prépare l'ordre. C'est toi qui décides d'appuyer sur Entry Now. Tu gardes le contrôle total.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Qu'est-ce que l'ETG Advanced PA Secured ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Un Expert Advisor MT5 développé par Elite Traders Group qui automatise la détection des zones S/R, le calcul du risque et l'exécution des ordres.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Est-ce un robot automatique ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Non. L'EA t'assiste : il détecte les zones, calcule le risque et prépare l'ordre. Tu gardes le contrôle total.</div></div>
         <div class="faq-item"><div class="faq-question"><span>❓ Sur quels marchés est-il compatible ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Forex, Indices Synthétiques Deriv (Boom, Crash, Step Index), et tous les brokers compatibles MT5.</div></div>
-        <div class="faq-item"><div class="faq-question"><span>❓ Puis-je utiliser la licence sur plusieurs PC ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">La licence est sécurisée pour 1 PC. Chaque achat = 1 licence PC. Support WhatsApp pour changement.</div></div>
-        <div class="faq-item"><div class="faq-question"><span>❓ Y a-t-il un remboursement possible ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Vente définitive. Politique clairement affichée avant l'achat. Le produit est numérique avec accès immédiat.</div></div>
-        <div class="faq-item"><div class="faq-question"><span>❓ Comment se passe l'installation ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Accès immédiat via WhatsApp avec guide complet et support direct. Notre équipe t'accompagne étape par étape.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Puis-je utiliser la licence sur plusieurs PC ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">La licence est sécurisée pour 1 PC. Support WhatsApp pour changement.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Y a-t-il un remboursement possible ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Vente définitive. Le produit est numérique avec accès immédiat.</div></div>
+        <div class="faq-item"><div class="faq-question"><span>❓ Comment se passe l'installation ?</span> <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Accès immédiat via WhatsApp avec guide complet et support direct.</div></div>
       </div>
     </div>
   </section>
 
-  <!-- Dernier CTA -->
   <section style="padding-top: 20px; padding-bottom: 70px;">
     <div class="container">
       <div class="card" style="text-align: center; background: rgba(10,14,23,0.9); border: 2px solid rgba(229,161,46,0.4);">
         <h2 style="font-size: 2rem;text-transform: uppercase;">Rejoins les <span style="color:#E5A12E;">50 premiers traders </span><br>à utiliser un <span style="color: #E5A12E;">système complet</span></h2>
         <p style="margin: 16px 0;">Paiement unique · Aucun abonnement · Accès immédiat</p>
-        <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary" id="ctaFooter"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
+        <a href="https://boutique.elitetradersgroup.site/fr/products/etg-advanced-pa-secured-mt5/checkout" class="btn-primary"><i class="fas fa-cart-shopping"></i> JE VEUX MA LICENCE — 19.900 FCFA</a>
         <p style="margin-top: 20px; font-size: 0.7rem;"><i class="fas fa-lock"></i> 50 licences disponibles · Paiement unique</p>
       </div>
     </div>
@@ -585,32 +549,31 @@
 
 <footer>
   <div class="container">
-    <p>L'EA NE GARANTIT PAS DE PROFITS. LE TRADING COMPORTE DES RISQUES IMPORTANTS DE PERTE EN CAPITAL. N'INVESTISSEZ QUE CE QUE VOUS POUVEZ VOUS PERMETTRE DE PERDRE.</p>
-    <p style="margin-top: 12px;">© 2026 ELITE TRADERS GROUP · TOUS DROITS RÉSERVÉS</p>
+    <p>L'EA NE GARANTIT PAS DE PROFITS. LE TRADING COMPORTE DES RISQUES IMPORTANTS DE PERTE EN CAPITAL.</p>
+    <p style="margin-top: 12px;">© 2025 ELITE TRADERS GROUP · TOUS DROITS RÉSERVÉS</p>
   </div>
 </footer>
 
 <script>
-  // ========== LIVE FEED ==========
+  // LIVE FEED
   const activities = [
-    "Koffi M. — Côte d'Ivoire vient d'obtenir sa licence ETG Advanced PA Secured ✓",
-    "Moussa D. — Sénégal a commencé à trader avec l'EA ce matin ✓",
+    "Koffi M. — Côte d'Ivoire vient d'obtenir sa licence ✓",
+    "Moussa D. — Sénégal a commencé à trader avec l'EA ✓",
     "Adjoa K. — Togo vient de passer commande ✓",
-    "Ibrahim S. — Burkina Faso \"L'EA a détecté une zone parfaite sur le Boom 1000\" ✓",
+    "Ibrahim S. — Burkina Faso \"Zone parfaite sur Boom 1000\" ✓",
     "Seydou B. — Mali vient de rejoindre le groupe privé ETG ✓",
     "Aïcha L. — Bénin vient d'activer sa licence sur MT5 ✓",
-    "Eric A. — Cameroun exécute son premier trade avec Entry Now ✓",
-    "Fatou N. — Sénégal \"Le calculateur de risque m'a évité un gros DD\" ✓"
+    "Eric A. — Cameroun exécute son premier trade ✓",
+    "Fatou N. — Sénégal \"Le calculateur m'a évité un gros DD\" ✓"
   ];
   function initTicker() {
     const feedDiv = document.getElementById('feedContainer');
     if (!feedDiv) return;
-    const allItems = [...activities, ...activities];
-    feedDiv.innerHTML = allItems.map(msg => `<div class="feed-item"><i class="fas fa-circle feed-icon"></i><span>${msg}</span></div>`).join('');
+    feedDiv.innerHTML = [...activities, ...activities].map(msg => `<div class="feed-item"><i class="fas fa-circle feed-icon"></i><span>${msg}</span></div>`).join('');
   }
   initTicker();
 
-  // ========== SWIPER ==========
+  // SWIPER
   new Swiper('.testimonials-slider', {
     slidesPerView: 1, spaceBetween: 20, centeredSlides: true, loop: true,
     pagination: { el: '.swiper-pagination', clickable: true },
@@ -619,7 +582,7 @@
     autoplay: { delay: 4000, disableOnInteraction: false }, speed: 600
   });
 
-  // ========== FAQ ==========
+  // FAQ
   document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-question').addEventListener('click', () => {
       const isActive = item.classList.contains('active');
@@ -630,202 +593,26 @@
   const firstFaq = document.querySelector('.faq-item');
   if(firstFaq) firstFaq.classList.add('active');
 
-  // ========== VRAI GRAPHIQUE DE TRADING (COMME MT5/TRADINGVIEW) ==========
-  const canvas = document.getElementById('trading-bg');
-  if (canvas) {
-    const ctx = canvas.getContext('2d');
-    let w, h;
-    
-    const CANDLE_W = 8;
-    const GAP = 3;
-    const STEP = CANDLE_W + GAP;
-    
-    let candles = [];
-    let offset = 0;
-    let speed = 0.4;
-    
-    // Prix simulé réaliste
-    let price = 1.0845;
-    let trend = 0.00012;
-    let volatility = 0.00038;
-    let lastTrendFlip = 0;
-    
-    // Zones de support / résistance
-    let zones = [];
-    
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-      candles = [];
-      zones = [];
-      
-      // Générer une série de bougies réaliste
-      let p = 1.0845;
-      let t = 0.0001;
-      for (let i = 0; i < Math.ceil(w / STEP) + 80; i++) {
-        let open = p;
-        let change = (Math.random() - 0.48) * volatility + t;
-        let close = open + change;
-        let upperWick = Math.random() * volatility * 0.7;
-        let lowerWick = Math.random() * volatility * 0.7;
-        let high = Math.max(open, close) + upperWick;
-        let low = Math.min(open, close) - lowerWick;
-        p = close;
-        
-        if (Math.random() < 0.03) t = -t + (Math.random() - 0.5) * 0.00015;
-        
-        candles.push({ open, high, low, close });
-      }
-      
-      // Créer des zones S/R réalistes
-      let allPrices = candles.flatMap(c => [c.high, c.low]);
-      let minP = Math.min(...allPrices);
-      let maxP = Math.max(...allPrices);
-      let range = maxP - minP;
-      
-      // 3-4 zones de support (bleu) et résistance (rouge)
-      for (let i = 0; i < 3; i++) {
-        let zMin = minP + Math.random() * range * 0.3;
-        let zMax = zMin + range * 0.04;
-        zones.push({ type: 'support', yMin: zMin, yMax: zMax, color: 'rgba(59, 130, 246, 0.25)' });
-      }
-      for (let i = 0; i < 2; i++) {
-        let zMax2 = maxP - Math.random() * range * 0.25;
-        let zMin2 = zMax2 - range * 0.05;
-        zones.push({ type: 'resistance', yMin: zMin2, yMax: zMax2, color: 'rgba(239, 68, 68, 0.25)' });
-      }
-    }
-    
-    window.addEventListener('resize', resize);
-    resize();
-    
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      
-      let visibleCount = Math.ceil((w + offset) / STEP);
-      let visible = candles.slice(-visibleCount);
-      
-      if (visible.length < 2) { requestAnimationFrame(draw); return; }
-      
-      let allPrices = visible.flatMap(c => [c.high, c.low]);
-      let minP = Math.min(...allPrices);
-      let maxP = Math.max(...allPrices);
-      let range = maxP - minP;
-      if (range === 0) range = 0.001;
-      
-      let pad = range * 0.08;
-      minP -= pad; maxP += pad;
-      range = maxP - minP;
-      
-      function toY(p) {
-        return h - ((p - minP) / range) * (h * 0.92) - h * 0.04;
-      }
-      
-      // Grille de prix subtile (comme MT5)
-      ctx.strokeStyle = 'rgba(255,255,255,0.03)';
-      ctx.lineWidth = 1;
-      ctx.setLineDash([4, 4]);
-      for (let i = 0; i <= 8; i++) {
-        let y = toY(minP + (range / 8) * i);
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-      }
-      ctx.setLineDash([]);
-      
-      // Zones de support / résistance (rectangles horizontaux)
-      zones.forEach(z => {
-        let y1 = toY(z.yMax);
-        let y2 = toY(z.yMin);
-        let zoneH = Math.max(y2 - y1, 8);
-        ctx.fillStyle = z.color;
-        ctx.fillRect(0, y1, w, zoneH);
-        
-        // Ligne de bordure
-        ctx.strokeStyle = z.color.replace('0.25', '0.5');
-        ctx.lineWidth = 1;
-        ctx.setLineDash([6, 4]);
-        ctx.beginPath(); ctx.moveTo(0, y1); ctx.lineTo(w, y1); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(0, y2); ctx.lineTo(w, y2); ctx.stroke();
-        ctx.setLineDash([]);
-      });
-      
-      // Bougies japonaises
-      let startX = w - offset;
-      for (let i = visible.length - 1; i >= 0; i--) {
-        let c = visible[i];
-        let x = startX - i * STEP;
-        if (x < -STEP || x > w + STEP) continue;
-        
-        let isBullish = c.close >= c.open;
-        
-        // Mèche
-        ctx.strokeStyle = isBullish ? 'rgba(34,197,94,0.6)' : 'rgba(239,68,68,0.6)';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(x, toY(c.high));
-        ctx.lineTo(x, toY(c.low));
-        ctx.stroke();
-        
-        // Corps
-        let bodyTop = Math.min(toY(c.open), toY(c.close));
-        let bodyH = Math.max(Math.abs(toY(c.close) - toY(c.open)), 1);
-        
-        if (isBullish) {
-          // Bougie haussière : corps blanc/clair avec contour vert
-          ctx.fillStyle = 'rgba(22, 230, 100, 0.7)';
-          ctx.strokeStyle = 'rgba(34,197,94,0.8)';
-          ctx.lineWidth = 1;
-          ctx.fillRect(x - CANDLE_W/2, bodyTop, CANDLE_W, bodyH);
-          ctx.strokeRect(x - CANDLE_W/2, bodyTop, CANDLE_W, bodyH);
-        } else {
-          // Bougie baissière : corps rouge plein
-          ctx.fillStyle = 'rgba(220, 38, 38, 0.7)';
-          ctx.strokeStyle = 'rgba(239,68,68,0.8)';
-          ctx.lineWidth = 1;
-          ctx.fillRect(x - CANDLE_W/2, bodyTop, CANDLE_W, bodyH);
-          ctx.strokeRect(x - CANDLE_W/2, bodyTop, CANDLE_W, bodyH);
-        }
-      }
-      
-      // Défilement lent
-      offset += speed;
-      if (offset >= STEP) {
-        offset = 0;
-        
-        // Générer nouvelle bougie
-        let lastCandle = candles[candles.length - 1];
-        let open = lastCandle.close;
-        let change = (Math.random() - 0.47) * volatility + trend;
-        let close = open + change;
-        let upperWick = Math.random() * volatility * 0.5;
-        let lowerWick = Math.random() * volatility * 0.5;
-        let high = Math.max(open, close) + upperWick;
-        let low = Math.min(open, close) - lowerWick;
-        
-        candles.push({ open, high, low, close });
-        
-        // Flip de tendance occasionnel
-        if (Math.random() < 0.02) {
-          trend = -trend + (Math.random() - 0.5) * 0.00008;
-        }
-        
-        // Garder taille raisonnable
-        if (candles.length > visibleCount + 60) {
-          candles.splice(0, candles.length - visibleCount - 60);
-        }
-      }
-      
-      requestAnimationFrame(draw);
-    }
-    
-    draw();
+  // VIDEO PLAYBACK (fallback si autoplay bloqué)
+  const bgVideo = document.getElementById('bg-video');
+  if (bgVideo) {
+    bgVideo.play().catch(() => {
+      console.log('Autoplay bloqué — la vidéo démarrera au premier scroll');
+    });
+    document.addEventListener('scroll', function initOnScroll() {
+      bgVideo.play();
+      document.removeEventListener('scroll', initOnScroll);
+    }, { once: true });
   }
-
-  // ========== CTA HOVER ==========
-  document.querySelectorAll('.btn-primary').forEach(btn => {
-    btn.addEventListener('mouseenter', () => btn.style.animation = 'cta-shake 0.4s ease, cta-glow 0.3s ease-in-out infinite');
-    btn.addEventListener('mouseleave', () => btn.style.animation = 'cta-jump 2s ease-in-out infinite, cta-glow 1.5s ease-in-out infinite');
-  });
 </script>
 </body>
 </html>
+
+<video id="bg-video" autoplay muted loop playsinline preload="auto">
+  <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
+</video>
+
+<video id="bg-video" autoplay muted loop playsinline preload="auto">
+  <source src="./assets/img/ma-video-trading.mp4" type="video/mp4">
+</video>
 
